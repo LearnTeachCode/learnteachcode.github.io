@@ -1,0 +1,66 @@
+body {
+	font-family: "Helvetica", "Arial", sans-serif;
+	font-size:1.1em;
+	line-height: 1.5;
+	color: #404040;
+	margin: 0;
+	padding: 0;
+	max-width: 55rem;
+	margin: 0 auto;
+	padding: 4rem 3rem;
+}
+
+a {
+	color: #b74949;
+}
+
+h1, h2, h3, strong {
+	color: #333;
+}
+
+p, ul, ol {
+	margin-bottom:1rem;
+}
+
+li {
+	margin-bottom: 0.5rem;
+}
+
+
+
+section {
+	margin-bottom: 3rem;
+	padding-bottom: 2rem;
+	border-bottom: 1px solid #ddd;
+}
+
+header {
+	margin-bottom:3rem;
+	padding-bottom: 2rem;
+	border-bottom: 1px solid #ddd;
+}
+
+
+
+h1 {
+	font-size:3em;
+	margin-bottom: 0;
+	text-align:center;
+}
+
+.tagline {
+	font-size:1.3em;
+	max-width: 80%;
+	margin: 1em auto 2em auto;
+	font-style: italic;
+	text-align: center;
+	color: #b74949;
+}
+
+h2 {
+	font-size: 1.8em;
+}
+
+h3 {
+	font-size:1.4em;
+}
