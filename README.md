@@ -1,6 +1,6 @@
 # Learn Teach Code
 
-[learnteachcode.org](www.learnteachcode.org)
+[learnteachcode.org](http://learnteachcode.org/)
 
 A community for anyone who wants to learn about computer science or programming
 
@@ -25,14 +25,15 @@ See our [Meetup.com calendar](https://www.meetup.com/LearnTeachCode/) for detail
 * Every other Friday, **Little Tokyo: Python Project Based Study Group**
 * Every other Sunday, **Miracle Mile: Python Study Group**
 
-## [![Slack Channels](https://a.slack-edge.com/66f9/img/icons/ios-64.png)](learnteachcode.github.io) Slack Channels <iframe src="http://learnteachcode.herokuapp.com/iframe" class="__slackin" style="border-width: 0px; width: 108px; height: 20px; visibility: visible;"></iframe>
-
-This is a list of Learn Teach Code Slack Channels you can join for free to discuss various topics :).
 
 
-Want to get more involved with our community? Join our chatroom on Slack and follow us on [Twitter](https://twitter.com/LearnToCodeLA) and [GitHub](https://github.com/learnteachcode)!
+Want to get more involved with our community? Follow us on [Twitter](https://twitter.com/LearnToCodeLA) and [GitHub](https://github.com/learnteachcode)!
 
 Want to sponsor us? We're always on the lookout for more meeting spaces. Let us know if you have any suggestions or would like to sponsor us at your office!
+
+### [<img src="https://a.slack-edge.com/66f9/img/icons/ios-64.png" height="20"> Slack Channels](https://learnteachcode.herokuapp.com/)
+
+This is a list of Learn Teach Code Slack Channels you can join for free to discuss various topics :).
 
  ---
 
@@ -72,4 +73,4 @@ Want to sponsor us? We're always on the lookout for more meeting spaces. Let us 
 - [#ux](https://learnteachcode.slack.com/archives/ux)
 - [#women](https://learnteachcode.slack.com/archives/women)
 
-learnteachcode.org
+[learnteachcode.org](http://learnteachcode.org/)
