@@ -1,15 +1,40 @@
-# Website for Learn Teach Code
-Website for Learn Teach Code, a community for anyone who wants to learn about computer science or programming
+# Learn Teach Code
 
+[learnteachcode.org](www.learnteachcode.org)
 
-## Slack Channels
+A community for anyone who wants to learn about computer science or programming
 
-[![Awesome](https://a.slack-edge.com/66f9/img/icons/ios-64.png)](learnteachcode.github.io)
+Whether you're a total beginner or a coding ninja/guru/Jedi Master, we're here to learn about computer science and programming in a fun, informal environment -- and also to provide moral support to fight the fears and frustrations that come with learning a new skill or transitioning to a new career.
+
+Learn programming fundamentals through a variety of languages and platforms together in small groups or pair programming -- everything from short tutorials to day-long hackathons/learnathons!
+
+* Workshops -- build something tangible and learn new skills in our structured group classes!
+* Co-working and casual learning - work on your own projects independently while enjoying the company of like-minded people.
+* Discussion groups for language-agnostic topics (book club, anyone?)
+* Project show-and-tell -- get feedback, generate ideas, or just show off your mad skillz!
+* And other random, fun activities like geeky movie nights and joint events with other meetups!
+
+### Active Groups:
+
+See our [Meetup.com calendar](https://www.meetup.com/LearnTeachCode/) for details on our next meetings.
+
+* Every other Monday, **Little Tokyo: Web Dev Study Group and Pair Programming**
+* Every other Monday, **Little Tokyo: Workshops on Various Topics (Mostly Web Dev)**
+* Every Thursday, **Culver City: Java Study Group**
+* Every other Thursday, **Thousand Oaks: 805 Developers Hub (Learning by doing)**
+* Every other Friday, **Little Tokyo: Python Project Based Study Group**
+* Every other Sunday, **Miracle Mile: Python Study Group**
+
+## [![Slack Channels](https://a.slack-edge.com/66f9/img/icons/ios-64.png)](learnteachcode.github.io) Slack Channels <iframe src="http://learnteachcode.herokuapp.com/iframe" class="__slackin" style="border-width: 0px; width: 108px; height: 20px; visibility: visible;"></iframe>
 
 This is a list of Learn Teach Code Slack Channels you can join for free to discuss various topics :).
 
-=================
 
+Want to get more involved with our community? Join our chatroom on Slack and follow us on [Twitter](https://twitter.com/LearnToCodeLA) and [GitHub](https://github.com/learnteachcode)!
+
+Want to sponsor us? We're always on the lookout for more meeting spaces. Let us know if you have any suggestions or would like to sponsor us at your office!
+
+ ---
 
 - [#algorithms](https://learnteachcode.slack.com/archives/algorithms)
 - [#archived](https://learnteachcode.slack.com/archives/archived)
@@ -46,3 +71,5 @@ This is a list of Learn Teach Code Slack Channels you can join for free to discu
 - [#trivia](https://learnteachcode.slack.com/archives/trivia)
 - [#ux](https://learnteachcode.slack.com/archives/ux)
 - [#women](https://learnteachcode.slack.com/archives/women)
+
+learnteachcode.org
