@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 
 	<title>Learn Teach Code - Java</title>
-	<link rel="stylesheet" href="..\style.css">
+	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -25,37 +25,7 @@
 		<p>Please make a pull request or join us at our project-based meetups if you're interested in collaborating.</p>
 
 		<ul>
-			<li>
-				<a href="https://github.com/LearnTeachCode/recipe-matcher">Recipe Matcher</a>
-				<p>
-					A web app that matches ingredients you already have with a database of recipes.
-				</p>
-				<p>
-					This application was developed for the owner of the blog <a href="http://www.pantryimpossible.com/">Pantry Impossible</a> Check it out!
-				</p>
-				<p>
-					Principal developer: Hyak M.
-				</p
-			</li>
-			<li>
-				<a href="https://github.com/nihalpd/fikky">Fikky</a>
-				<p>
-					A fiction-writing web app that allows you to collaborate and write "create your own adventure" type stories.
-				</p>
-				<p>
-					Principal developer: Nihal D.
-				</p>
-			</li>
-			<li>
-				<a href="https://github.com/suren39/STOCK-TWITS">Stock Twits</a>
-				<p>
-					A microservice architecture project that uses the Stock Twits API. 
-					There is a machine learning component to this project that will apply natural language processing techniques on the stock twits to predict trends.
-				</p>
-				<p>
-					Principal Developer: Suren A.
-				</p>
-			</li>
+			<li></li>
 		</ul>
 	</section>
 
@@ -65,7 +35,7 @@
 		<p>Please contact owners for more info.</p>
 
 		<ul>
-			<li>Dungeon Crawler</li>
+			<li></li>
 		</ul>
 
 	</section>
@@ -76,8 +46,7 @@
 		<p>Here's a list that we've compiled for beginners and up.</p>
 
 		<ul>
-			<li><a href="https://zimslifeintcs.files.wordpress.com/2011/12/head-first-java-2nd-edition.pdf">Head First - Java - 2nd Edition</a></li>
-			<li><a href="https://archive.org/details/IntroToJavaProgramming10thEdition">Intro to Java Programming - Daniel Liang - 10th Edition</a></li>
+			<li></li>
 		</ul>
 
 	</section>
