@@ -1,13 +1,23 @@
-$(document).ready(function(){
+(function(){
+
+	var api = {};
+		api.group = 'LearnTeachCode';
+		api.perPage = 15;
+		api.offset = 0;
+		api.path = 'https://api.meetup.com/2/events?&sign=true&photo-host=public';
+		api.url = api.path + '&group_urlname=' + api.group + '&page=' + api.perPage;
+		api.err = "Error occurred processing Meetup API URL";
 
 	// Get Meetup Data
-	$.ajax({
-		type:"GET",
-		url:"https://api.meetup.com/2/events?&sign=true&photo-host=public&group_urlname=LearnTeachCode&page=15",
-		success: displayMeetups,
-		error: function(){console.log("Error occurred processing Meetup API URL");},
-		dataType: 'jsonp'
-	});
+	function getData(url, successFunc, errMsg) {
+		$.ajax({
+			type: "GET",
+			url: url,
+			success: successFunc,
+			error: function(){ console.log( errMsg ); },
+			dataType: 'jsonp'
+		});
+	}
 
 	// Display Meetup Data
 	function displayMeetups(data){
@@ -16,25 +26,11 @@ $(document).ready(function(){
 
 		// Check count of upcoming events
 		if(data.meta.count){
-			// For each event create a list item
-			for (var i=0,l=data.results.length; i < l; i++) {
-				// Current event
-				var meetup = data.results[i];
-
-				// Setup event date info
-				var d = {};
-				d.date = new Date(meetup.time);
-				d.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-				d.month = d.months[d.date.getMonth()];
-				d.d = d.date.getDate();
-				d.day = (d.d > 9)? d.d : "0"+d.d;
-
-				// Formant and add current event to list
-				list += '<li>'+d.month+' '+d.day+' - '+meetup.venue.city+' - <a href="'+meetup.event_url+'">'+meetup.name+'</a></li>';
-			}
+			// Get formatted meetups list items
+			list = getFormattedMeetups(data.results).join('');
 			// If more items are available add a note
-			if(data.meta.total_count > data.meta.count){
-				list += '<li>More events available: <a href="https://www.meetup.com/LearnTeachCode/#upcoming">View More</a></li>';
+			if(data.meta.total_count > data.meta.count && data.meta.count >= api.perPage){
+				list += '<li class="load-more">More events available: <a href="https://www.meetup.com/LearnTeachCode/#upcoming">View More</a></li>';
 			}
 		}else{
 			// No upcoming events note
@@ -42,7 +38,43 @@ $(document).ready(function(){
 		}
 
 		// Add the list to the element
-		$(".meetups").html(list);
+		$(".meetups").append(list);
+
+		$('.load-more a').click( function(e) {
+			e.preventDefault();
+			$(this).parent().remove();
+			api.offset++;
+			getData( api.url + '&offset=' + api.offset, displayMeetups, api.err);
+		});
 	}
 
-});
+	/**
+	 * formatEvents() will get a set of meetups and format accordingly
+	 * @param {*} meetups
+	 */
+	function getFormattedMeetups(meetups) {
+		var formattedMeetups = [];
+		// For each event create a list item
+		meetups.filter( function( meetup, index) {
+			// Setup event date info
+			var d = {};
+			d.date = new Date(meetup.time);
+			d.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+			d.month = d.months[d.date.getMonth()];
+			d.d = d.date.getDate();
+			d.day = (d.d > 9)? d.d : "0"+d.d;
+
+			// Formant and add current event to list
+			formattedMeetups.push('<li>'+d.month+' '+d.day+' - '+meetup.venue.city+' - <a href="'+meetup.event_url+'">'+meetup.name+'</a></li>');
+		});
+		return formattedMeetups;
+	}
+
+	/**
+	 * Get initial set of group meetups
+	 */
+	$(document).ready(function(){
+		getData( api.url, displayMeetups, api.err);
+	});
+
+})();
