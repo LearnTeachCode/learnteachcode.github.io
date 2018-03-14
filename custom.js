@@ -30,7 +30,7 @@ $(document).ready(function(){
 				d.day = (d.d > 9)? d.d : "0"+d.d;
 
 				// Formant and add current event to list
-				list += '<li>'+d.month+' '+d.day+': <a href="'+meetup.event_url+'">'+meetup.name+'</a></li>';
+				list += '<li>'+d.month+' '+d.day+' - '+meetup.venue.city+' - <a href="'+meetup.event_url+'">'+meetup.name+'</a></li>';
 			}
 			// If more items are available add a note
 			if(data.meta.total_count > data.meta.count){
