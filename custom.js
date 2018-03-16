@@ -30,19 +30,20 @@
 			list = getFormattedMeetups(data.results).join('');
 			// If more items are available add a note
 			if(data.meta.total_count > data.meta.count && data.meta.count >= api.perPage){
-				list += '<li class="load-more">More events available: <a href="https://www.meetup.com/LearnTeachCode/#upcoming">View More</a></li>';
+				list += '<li class="load-more"><a href="https://www.meetup.com/LearnTeachCode/events/">Load More</a></li>';
 			}
 		}else{
 			// No upcoming events note
 			list += '<li>No Meetups Currently Scheduled. Stay tuned.</li>';
 		}
 
+		// Remove load-more button, if exists, just before adding new elements
+		$('.load-more').remove();
 		// Add the list to the element
 		$(".meetups").append(list);
 
 		$('.load-more a').click( function(e) {
 			e.preventDefault();
-			$(this).parent().remove();
 			api.offset++;
 			getData( api.url + '&offset=' + api.offset, displayMeetups, api.err);
 		});
@@ -50,7 +51,8 @@
 
 	/**
 	 * formatEvents() will get a set of meetups and format accordingly
-	 * @param {*} meetups
+	 * @param {meetups}
+	 * @returns {(object|Array)}
 	 */
 	function getFormattedMeetups(meetups) {
 		var formattedMeetups = [];
@@ -65,7 +67,7 @@
 			d.day = (d.d > 9)? d.d : "0"+d.d;
 
 			// Formant and add current event to list
-			formattedMeetups.push('<li>'+d.month+' '+d.day+' - '+meetup.venue.city+' - <a href="'+meetup.event_url+'">'+meetup.name+'</a></li>');
+			formattedMeetups.push('<li>'+d.month+' '+d.day+' - '+meetup.venue.city+': <a href="'+meetup.event_url+'">'+meetup.name+'</a></li>');
 		});
 		return formattedMeetups;
 	}
