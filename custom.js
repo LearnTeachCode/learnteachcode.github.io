@@ -65,11 +65,30 @@
 			d.month = d.months[d.date.getMonth()];
 			d.d = d.date.getDate();
 			d.day = (d.d > 9)? d.d : "0"+d.d;
+			d.time = formatAMPM( d.date );
 
 			// Formant and add current event to list
-			formattedMeetups.push('<li>'+d.month+' '+d.day+' - '+meetup.venue.city+': <a href="'+meetup.event_url+'">'+meetup.name+'</a></li>');
+			formattedMeetups.push(
+				'<li>'
+				+ d.month + ' ' + d.day
+				+ ' (' + d.time+ ') - '
+				+ meetup.venue.city + ': '
+				+'<a href="'+meetup.event_url+'">'+meetup.name+'</a>'
+				+'</li>'
+			);
 		});
 		return formattedMeetups;
+	}
+
+	function formatAMPM(date) {
+		var hours = date.getHours();
+		var minutes = date.getMinutes();
+		var ampm = hours >= 12 ? 'pm' : 'am';
+		hours = hours % 12;
+		hours = hours ? hours : 12; // the hour '0' should be '12'
+		minutes = minutes < 10 ? '0'+minutes : minutes;
+		var strTime = hours + ':' + minutes + ' ' + ampm;
+		return strTime;
 	}
 
 	/**
