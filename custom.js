@@ -56,6 +56,7 @@
 	 */
 	function getFormattedMeetups(meetups) {
 		var formattedMeetups = [];
+
 		// For each event create a list item
 		meetups.filter( function( meetup, index) {
 			// Setup event date info
@@ -64,16 +65,23 @@
 			d.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 			d.month = d.months[d.date.getMonth()];
 			d.d = d.date.getDate();
+			d.wkdys = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+			d.dow = d.wkdys[ d.date.getDay() ];
 			d.day = (d.d > 9)? d.d : "0"+d.d;
 			d.time = formatAMPM( d.date );
 
 			// Formant and add current event to list
 			formattedMeetups.push(
-				'<li>'
-				+ d.month + ' ' + d.day
-				+ ' (' + d.time+ ') - '
-				+ meetup.venue.city + ': '
-				+'<a href="'+meetup.event_url+'">'+meetup.name+'</a>'
+				'<li class="meetup">'
+				+ '<div class="datebox">'
+				+ ' <div class="dow">' + d.dow + '</div>'
+				+ ' <div class="date">' + d.month + ' ' + d.day + '</div>'
+				+ ' <div class="time">' + d.time	+ '</div>'
+				+ '</div>'
+				+ '<div class="infobox">'
+				+ ' <div class="title"><a href="' + meetup.event_url + '">' + meetup.name + '</a></div>'
+				+ ' <div class="city">' + meetup.venue.city + ' - ' + meetup.venue.name + '</div>'
+				+ '</div>'
 				+'</li>'
 			);
 		});
