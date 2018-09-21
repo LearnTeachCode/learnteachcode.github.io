@@ -66,7 +66,7 @@
 			d.month = d.months[d.date.getMonth()];
 			d.d = d.date.getDate();
 			d.wkdys = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-			d.dow = d.wkdys[ d.date.getDay() ];
+			d.dow = d.wkdys[ d.date.getDay() - 1 ];
 			d.day = (d.d > 9)? d.d : "0"+d.d;
 			d.time = formatAMPM( d.date );
 
