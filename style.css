@@ -74,12 +74,13 @@ section {
 
 .meetup {
 	display: grid;
-	grid-template-columns: 9% repeat(6, 10%);
+	grid-template-columns: 70px repeat(6, 10%);
 	margin-bottom: 0.4rem;
 }
 
 .datebox {
 	display: table-cell;
+	min-width: 70px;
     border: 1px solid #b74949;
     margin-right: 5px;
     font-size: 13px;
