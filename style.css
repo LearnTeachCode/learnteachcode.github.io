@@ -66,6 +66,11 @@ section {
 	border-bottom: 1px solid #ddd;
 }
 
+/** MAP **/
+#mapid {
+	height: 300px;
+}
+
 /** UPCOMING EVENTS **/
 .meetups {
 	list-style: none;

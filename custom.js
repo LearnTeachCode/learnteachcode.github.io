@@ -1,4 +1,8 @@
 (function(){
+	let ltc = {};
+		// ltc.map;
+		ltc.meetups = [];
+		ltc.markers = {};
 
 	var api = {};
 		api.group = 'LearnTeachCode';
@@ -19,8 +23,73 @@
 		});
 	}
 
+	function processData(data) {
+		// Append new meetups
+		ltc.meetups.push(...data.results);
+		// List new meetups
+		listMeetups(data);
+		mapMeetups(data);
+		console.log('ltc.meetups',ltc.meetups);
+	}
+
+	function mapMeetups(data){
+		let currentMarkers = [];
+		if(data.meta.count){
+			drawMap();
+			data.results.forEach( meetup => {
+				// console.log('venue',meetup.venue.name,meetup.venue.id);
+				if( Math.abs(meetup.venue.lat) && Math.abs(meetup.venue.lon) ) {
+					meetup.popup = { meetings: [] };
+					if( ltc.markers[meetup.venue.id] ) {
+						//
+						console.log('venue exists!', meetup.venue.name, meetup, meetup.popup);
+						meetup.popup.meetings.push( '('+meetup.id+') <a href="'+meetup.event_url+'" title="'+meetup.name+'">'+meetup.name+'</a>' );
+					} else {
+						meetup.popup.title = '<h4>'+meetup.venue.name+'</h4>';
+						meetup.popup.meetings.push( '('+meetup.id+') <a href="'+meetup.event_url+'" title="'+meetup.name+'">'+meetup.name+'</a>' );
+						meetup.popup.content = meetup.popup.title;
+						meetup.popup.meetings.forEach( meeting => {
+							meetup.popup.content += meeting;
+						});
+						console.log(meetup.popup.meetings);
+						// let popup = '<a href="'+meetup.event_url+'" title="'+meetup.name+'">'+meetup.name+'</a>';
+						meetup.marker = L.marker([meetup.venue.lat, meetup.venue.lon]).addTo(ltc.map).bindPopup( meetup.popup.content );
+						ltc.markers[meetup.venue.id] = meetup.marker;
+						currentMarkers.push( meetup.marker );
+					}
+
+				}
+			});
+
+			if( currentMarkers.length > 0 ) {
+				let group = new L.featureGroup( currentMarkers );
+				ltc.map.fitBounds( group.getBounds() );
+			}
+		}
+	}
+
+	function drawMap() {
+		if( !ltc.map ) {
+			ltc.map = L.map('mapid').setView([
+				// Los Angeles
+				34.0522, -118.2437
+			], 13);
+		
+			// Use Open Street Map default (Mapnik)
+			// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			//     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+			// }).addTo(ltc.map);
+			
+			// Use OpenMapSurfer.Roads
+			L.tileLayer('https://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}', {
+				maxZoom: 20,
+				attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+			}).addTo(ltc.map);
+		}
+	}
+
 	// Display Meetup Data
-	function displayMeetups(data){
+	function listMeetups(data){
 		// List Items
 		var list = '';
 
@@ -37,16 +106,11 @@
 			list += '<li>No Meetups Currently Scheduled. Stay tuned.</li>';
 		}
 
-		// Remove load-more button, if exists, just before adding new elements
+		// Remove load-more button just before adding new elements, which may include new load-more button
 		$('.load-more').remove();
+
 		// Add the list to the element
 		$(".meetups").append(list);
-
-		$('.load-more a').click( function(e) {
-			e.preventDefault();
-			api.offset++;
-			getData( api.url + '&offset=' + api.offset, displayMeetups, api.err);
-		});
 	}
 
 	/**
@@ -54,7 +118,7 @@
 	 * @param {meetups}
 	 * @returns {(object|Array)}
 	 */
-	function getFormattedMeetups(meetups) {
+	function getFormattedMeetups( meetups ) {
 		var formattedMeetups = [];
 
 		// For each event create a list item
@@ -103,7 +167,17 @@
 	 * Get initial set of group meetups
 	 */
 	$(document).ready(function(){
-		getData( api.url, displayMeetups, api.err);
+		// Get intial set of meetups
+		getData( api.url, processData, api.err);
+
+		// Click Event for Load More
+		$('.meetups').on('click','.load-more a',function(e) {
+			e.preventDefault();
+			api.offset++;
+			getData( api.url + '&offset=' + api.offset, processData, api.err);
+		});
 	});
+
+
 
 })();
