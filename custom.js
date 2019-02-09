@@ -55,9 +55,12 @@
 						meetup.marker.setPopupContent( newContent );
 						//console.log( meetup.marker.getPopup().getContent().split("</ul>")[0] + meeting + "</ul>" );
 					} else {
-						meetup.popup.title = '<h4>'+meetup.venue.name+'</h4>';
+						meetup.popup.title = '<strong>' + meetup.venue.name + '</strong>';
+						meetup.popup.location = '<br><small>' + meetup.venue.address_1 +', ';
+						meetup.popup.location += meetup.venue.city +', '+ meetup.venue.state.toUpperCase();
+						meetup.popup.location += ( (meetup.venue.zip)? ', '+meetup.venue.zip : '' )+'</small>';
 						meetup.popup.meetings.push( meeting );
-						meetup.popup.content = meetup.popup.title;
+						meetup.popup.content = meetup.popup.title + meetup.popup.location;
 						meetup.popup.content += "<ul>";
 						meetup.popup.meetings.forEach( meeting => {
 							meetup.popup.content += meeting;
@@ -232,7 +235,5 @@
 			setTimeout(function(){ $meetup.removeClass('active'); }, 3000);
 		})
 	});
-
-
 
 })();
