@@ -70,6 +70,10 @@ section {
 #mapid {
 	height: 300px;
 }
+.leaflet-popup-content ul {
+	list-style: none;
+	padding-left: 0px;
+}
 
 /** UPCOMING EVENTS **/
 .meetups {

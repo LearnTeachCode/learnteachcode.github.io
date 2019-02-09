@@ -41,16 +41,23 @@
 				if( Math.abs(meetup.venue.lat) && Math.abs(meetup.venue.lon) ) {
 					meetup.popup = { meetings: [] };
 					if( ltc.markers[meetup.venue.id] ) {
-						//
+						meetup.marker = ltc.markers[meetup.venue.id];
 						console.log('venue exists!', meetup.venue.name, meetup, meetup.popup);
-						meetup.popup.meetings.push( '('+meetup.id+') <a href="'+meetup.event_url+'" title="'+meetup.name+'">'+meetup.name+'</a>' );
+						let meeting = '<li>('+meetup.id+') <a href="'+meetup.event_url+'" title="'+meetup.name+'">'+meetup.name+'</a></li>';
+						meetup.popup.meetings.push( meeting );
+						//let content = meetup.popup.getContent();
+						let newContent = meetup.marker.getPopup().getContent().split("</ul>")[0] + meeting + "</ul>";
+						meetup.marker.setPopupContent( newContent );
+						//console.log( meetup.marker.getPopup().getContent().split("</ul>")[0] + meeting + "</ul>" );
 					} else {
 						meetup.popup.title = '<h4>'+meetup.venue.name+'</h4>';
-						meetup.popup.meetings.push( '('+meetup.id+') <a href="'+meetup.event_url+'" title="'+meetup.name+'">'+meetup.name+'</a>' );
+						meetup.popup.meetings.push( '<li>('+meetup.id+') <a href="'+meetup.event_url+'" title="'+meetup.name+'">'+meetup.name+'</a></li>' );
 						meetup.popup.content = meetup.popup.title;
+						meetup.popup.content += "<ul>";
 						meetup.popup.meetings.forEach( meeting => {
 							meetup.popup.content += meeting;
 						});
+						meetup.popup.content += "</ul>";
 						console.log(meetup.popup.meetings);
 						// let popup = '<a href="'+meetup.event_url+'" title="'+meetup.name+'">'+meetup.name+'</a>';
 						meetup.marker = L.marker([meetup.venue.lat, meetup.venue.lon]).addTo(ltc.map).bindPopup( meetup.popup.content );
@@ -63,7 +70,8 @@
 
 			if( currentMarkers.length > 0 ) {
 				let group = new L.featureGroup( currentMarkers );
-				ltc.map.fitBounds( group.getBounds() );
+				// Pad allows upper northern markers not to be cut off
+				ltc.map.fitBounds( group.getBounds().pad(0.5) );
 			}
 		}
 	}
@@ -77,13 +85,19 @@
 		
 			// Use Open Street Map default (Mapnik)
 			// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			// 	maxZoom: 20,
 			//     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 			// }).addTo(ltc.map);
 			
-			// Use OpenMapSurfer.Roads
-			L.tileLayer('https://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}', {
-				maxZoom: 20,
-				attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+			//// CARTO BASE MAPS - FREE TO USE ////
+			//// Max use 75,000 map impressions a Month per CartoDB, Inc.
+			//// MAP STYLE: Voyager
+			// var CartoDB_Voyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+			//// MAP STYLE: Voyager Labels Under
+			var CartoDB_VoyagerLabelsUnder = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', {
+				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+				subdomains: 'abcd',
+				maxZoom: 20
 			}).addTo(ltc.map);
 		}
 	}
