@@ -73,6 +73,11 @@ section {
 .leaflet-popup-content ul {
 	list-style: none;
 	padding-left: 0px;
+	max-height: 150px;
+    overflow-y: auto;
+}
+.leaflet-popup-content li.active {
+	border: 1px solid #b74949;
 }
 
 /** UPCOMING EVENTS **/

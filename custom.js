@@ -24,6 +24,10 @@
 	}
 
 	function processData(data) {
+		data.results.forEach( function( meetup, index ) {
+			// Get event formatted dates and time
+			data.results[index].d = getDateFormats( meetup );
+		});
 		// Append new meetups
 		ltc.meetups.push(...data.results);
 		// List new meetups
@@ -39,11 +43,12 @@
 			data.results.forEach( meetup => {
 				// console.log('venue',meetup.venue.name,meetup.venue.id);
 				if( Math.abs(meetup.venue.lat) && Math.abs(meetup.venue.lon) ) {
+					let meeting = '<li>'+meetup.d.month+' '+meetup.d.d+': <a href="#meetup-'+meetup.id+'" title="'+meetup.name+'">'+meetup.name+'</a></li>';
 					meetup.popup = { meetings: [] };
 					if( ltc.markers[meetup.venue.id] ) {
 						meetup.marker = ltc.markers[meetup.venue.id];
 						console.log('venue exists!', meetup.venue.name, meetup, meetup.popup);
-						let meeting = '<li>('+meetup.id+') <a href="'+meetup.event_url+'" title="'+meetup.name+'">'+meetup.name+'</a></li>';
+						
 						meetup.popup.meetings.push( meeting );
 						//let content = meetup.popup.getContent();
 						let newContent = meetup.marker.getPopup().getContent().split("</ul>")[0] + meeting + "</ul>";
@@ -51,7 +56,7 @@
 						//console.log( meetup.marker.getPopup().getContent().split("</ul>")[0] + meeting + "</ul>" );
 					} else {
 						meetup.popup.title = '<h4>'+meetup.venue.name+'</h4>';
-						meetup.popup.meetings.push( '<li>('+meetup.id+') <a href="'+meetup.event_url+'" title="'+meetup.name+'">'+meetup.name+'</a></li>' );
+						meetup.popup.meetings.push( meeting );
 						meetup.popup.content = meetup.popup.title;
 						meetup.popup.content += "<ul>";
 						meetup.popup.meetings.forEach( meeting => {
@@ -136,21 +141,13 @@
 		var formattedMeetups = [];
 
 		// For each event create a list item
-		meetups.filter( function( meetup, index) {
-			// Setup event date info
-			var d = {};
-			d.date = new Date(meetup.time);
-			d.months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-			d.month = d.months[d.date.getMonth()];
-			d.d = d.date.getDate();
-			d.wkdys = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-			d.dow = d.wkdys[ d.date.getDay() ];
-			d.day = (d.d > 9)? d.d : "0"+d.d;
-			d.time = formatAMPM( d.date );
+		meetups.filter( function( meetup ) {
+			// Get event formatted dates and time
+			var d = getDateFormats( meetup );
 
 			// Formant and add current event to list
 			formattedMeetups.push(
-				'<li class="meetup">'
+				'<li id="meetup-' + meetup.id + '" class="meetup">'
 				+ '<div class="datebox">'
 				+ ' <div class="dow">' + d.dow + '</div>'
 				+ ' <div class="date">' + d.month + ' ' + d.day + '</div>'
@@ -166,6 +163,28 @@
 		return formattedMeetups;
 	}
 
+	function getDateFormats(meetup) {
+		const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		const weekdays = ['Sunday','Monday','Tueday','Wednesday','Thursday','Friday','Saturday'];
+		const dt = new Date(meetup.time);
+
+		// Setup event date info
+		let d = {};
+		d.year = dt.getFullYear();
+		d.yyyy = d.year;
+		d.monthFull = months[dt.getMonth()];
+		d.month = d.monthFull.substring(0, 3);
+		d.m = dt.getMonth()+1;
+		d.mm = (d.m > 9)? d.m : "0"+d.m;
+		d.d = dt.getDate();
+		d.dowFull = weekdays[dt.getDay()];
+		d.dow = d.dowFull.substring(0, 3);
+		d.day = (d.d > 9)? d.d : "0"+d.d;
+		d.dd = d.day;
+		d.time = formatAMPM( dt );
+		return d;
+	}
+
 	function formatAMPM(date) {
 		var hours = date.getHours();
 		var minutes = date.getMinutes();
@@ -175,6 +194,18 @@
 		minutes = minutes < 10 ? '0'+minutes : minutes;
 		var strTime = hours + ':' + minutes + ' ' + ampm;
 		return strTime;
+	}
+
+	function scrollToID(id){
+		var element = document.getElementById(id.replace('#',''));
+		var headerOffset = 45;
+		var elementPosition = element.getBoundingClientRect().top;
+		var offsetPosition = elementPosition - headerOffset;
+	
+		window.scrollTo({
+			 top: offsetPosition,
+			 behavior: "smooth"
+		});
 	}
 
 	/**
@@ -190,6 +221,16 @@
 			api.offset++;
 			getData( api.url + '&offset=' + api.offset, processData, api.err);
 		});
+
+		$('.leaflet-popup-content ul li a').click(function(event) {
+			event.preventDefault();
+			let id = $(this).attr('href');
+			console.log( 'id', id );
+			let $meetup = $( id );
+			scrollToID(id);
+			$meetup.addClass('active');
+			setTimeout(function(){ $meetup.removeClass('active'); }, 3000);
+		})
 	});
 
 
