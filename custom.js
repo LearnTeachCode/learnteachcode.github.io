@@ -1,6 +1,6 @@
 (function(){
 	const ltc = {};
-		// ltc.map;
+		ltc.map;
 		ltc.meetups = [];
 		ltc.markers = {};
 
@@ -33,7 +33,6 @@
 		// List new meetups
 		listMeetups(data);
 		mapMeetups(data);
-		console.log('ltc.meetups',ltc.meetups);
 	}
 
 	function mapMeetups(data){
@@ -47,7 +46,7 @@
 					meetup.popup = { meetings: [] };
 					if( ltc.markers[meetup.venue.id] ) {
 						meetup.marker = ltc.markers[meetup.venue.id];
-						console.log('venue exists!', meetup.venue.name, meetup, meetup.popup);
+						// console.log('venue exists!', meetup.venue.name, meetup, meetup.popup);
 						
 						meetup.popup.meetings.push( meeting );
 						//let content = meetup.popup.getContent();
@@ -66,7 +65,8 @@
 							meetup.popup.content += meeting;
 						});
 						meetup.popup.content += "</ul>";
-						console.log(meetup.popup.meetings);
+						// console.log(meetup.popup.meetings);
+
 						// let popup = '<a href="'+meetup.event_url+'" title="'+meetup.name+'">'+meetup.name+'</a>';
 						meetup.marker = L.marker([meetup.venue.lat, meetup.venue.lon]).addTo(ltc.map).bindPopup( meetup.popup.content );
 						ltc.markers[meetup.venue.id] = meetup.marker;
@@ -87,6 +87,9 @@
 	function drawMap() {
 		// If a map has not been created
 		if( !ltc.map ) {
+			// Add height to map div via active class
+			document.getElementById('mapid').classList.add('active');
+
 			// Map Center Coordinates
 			let latlng = [ 34.0522, -118.2437 ];  // Los Angeles
 			let zoomlevel = 13;                   // Greater LA Metro Zoom view
@@ -202,18 +205,6 @@
 		return strTime;
 	}
 
-	function scrollToID(id){
-		let element = document.getElementById(id.replace('#',''));
-		let headerOffset = 0;
-		let elementPosition = element.getBoundingClientRect().top;
-		let offsetPosition = elementPosition - headerOffset;
-
-		window.scrollTo({
-			 top: offsetPosition,
-			 behavior: "smooth"
-		});
-	}
-
 	/**
 	 * Get initial set of group meetups
 	 */
@@ -228,14 +219,14 @@
 			getData( api.url + '&offset=' + api.offset, processData, api.err);
 		});
 
-		// Click Popup Event link to go to info
-		$('#mapid').on('click', '.leaflet-popup-content a', function(e) {
-			e.preventDefault();
-			let id = $(this).attr('href');
-			let $meetup = $(id);
-			scrollToID(id);
-			$meetup.addClass('active');
-			setTimeout(function(){ $meetup.removeClass('active'); }, 3000);
+		// Click Popup Event (when it exists) link to go to info
+		$('#mapid').on('click', '.leaflet-popup-content a', function(evt) {
+			evt.preventDefault();
+			let id = evt.target.hash.replace("#", "");
+			let meetupListItem = document.getElementById( id );
+			meetupListItem.scrollIntoView();
+			meetupListItem.classList.add('active');
+			setTimeout( () => { meetupListItem.classList.remove('active'); }, 3000);
 		});
 	});
 

@@ -71,7 +71,7 @@ section {
 }
 
 /** MAP **/
-#mapid {
+#mapid.active {
 	height: 300px;
 }
 .leaflet-popup-content ul {
