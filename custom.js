@@ -1,10 +1,10 @@
 (function(){
-	let ltc = {};
+	const ltc = {};
 		// ltc.map;
 		ltc.meetups = [];
 		ltc.markers = {};
 
-	var api = {};
+		const api = {};
 		api.group = 'LearnTeachCode';
 		api.perPage = 15;
 		api.offset = 0;
@@ -100,9 +100,9 @@
 			//// CARTO BASE MAPS - FREE TO USE ////
 			//// Max use 75,000 map impressions a Month per CartoDB, Inc.
 			//// MAP STYLE: Voyager
-			// var CartoDB_Voyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+			// let CartoDB_Voyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
 			//// MAP STYLE: Voyager Labels Under
-			var CartoDB_VoyagerLabelsUnder = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', {
+			let CartoDB_VoyagerLabelsUnder = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}{r}.png', {
 				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 				subdomains: 'abcd',
 				maxZoom: 20
@@ -113,7 +113,7 @@
 	// Display Meetup Data
 	function listMeetups(data){
 		// List Items
-		var list = '';
+		let list = '';
 
 		// Check count of upcoming events
 		if(data.meta.count){
@@ -141,12 +141,12 @@
 	 * @returns {(object|Array)}
 	 */
 	function getFormattedMeetups( meetups ) {
-		var formattedMeetups = [];
+		let formattedMeetups = [];
 
 		// For each event create a list item
 		meetups.filter( function( meetup ) {
 			// Get event formatted dates and time
-			var d = getDateFormats( meetup );
+			let d = getDateFormats( meetup );
 
 			// Formant and add current event to list
 			formattedMeetups.push(
@@ -189,21 +189,21 @@
 	}
 
 	function formatAMPM(date) {
-		var hours = date.getHours();
-		var minutes = date.getMinutes();
-		var ampm = hours >= 12 ? 'pm' : 'am';
+		let hours = date.getHours();
+		let minutes = date.getMinutes();
+		let ampm = hours >= 12 ? 'pm' : 'am';
 		hours = hours % 12;
 		hours = hours ? hours : 12; // the hour '0' should be '12'
 		minutes = minutes < 10 ? '0'+minutes : minutes;
-		var strTime = hours + ':' + minutes + ' ' + ampm;
+		let strTime = hours + ':' + minutes + ' ' + ampm;
 		return strTime;
 	}
 
 	function scrollToID(id){
-		var element = document.getElementById(id.replace('#',''));
-		var headerOffset = 45;
-		var elementPosition = element.getBoundingClientRect().top;
-		var offsetPosition = elementPosition - headerOffset;
+		let element = document.getElementById(id.replace('#',''));
+		let headerOffset = 45;
+		let elementPosition = element.getBoundingClientRect().top;
+		let offsetPosition = elementPosition - headerOffset;
 	
 		window.scrollTo({
 			 top: offsetPosition,
