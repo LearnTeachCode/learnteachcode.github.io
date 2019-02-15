@@ -204,10 +204,10 @@
 
 	function scrollToID(id){
 		let element = document.getElementById(id.replace('#',''));
-		let headerOffset = 45;
+		let headerOffset = 0;
 		let elementPosition = element.getBoundingClientRect().top;
 		let offsetPosition = elementPosition - headerOffset;
-	
+
 		window.scrollTo({
 			 top: offsetPosition,
 			 behavior: "smooth"
