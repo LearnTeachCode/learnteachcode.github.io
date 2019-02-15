@@ -228,15 +228,15 @@
 			getData( api.url + '&offset=' + api.offset, processData, api.err);
 		});
 
-		$('.leaflet-popup-content ul li a').click(function(event) {
-			event.preventDefault();
+		// Click Popup Event link to go to info
+		$('#mapid').on('click', '.leaflet-popup-content a', function(e) {
+			e.preventDefault();
 			let id = $(this).attr('href');
-			console.log( 'id', id );
-			let $meetup = $( id );
+			let $meetup = $(id);
 			scrollToID(id);
 			$meetup.addClass('active');
 			setTimeout(function(){ $meetup.removeClass('active'); }, 3000);
-		})
+		});
 	});
 
 })();

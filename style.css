@@ -80,9 +80,6 @@ section {
 	max-height: 150px;
     overflow-y: auto;
 }
-.leaflet-popup-content li.active {
-	border: 1px solid #b74949;
-}
 
 /** UPCOMING EVENTS **/
 .meetups {
@@ -94,6 +91,14 @@ section {
 	display: grid;
 	grid-template-columns: 70px repeat(6, 10%);
 	margin-bottom: 0.4rem;
+	transition: background .30s ease-in-out;
+	-moz-transition: background .30s ease-in-out;
+	-webkit-transition: background .30s ease-in-out;
+}
+
+.meetup.active {
+	background-color: rgba(183, 73, 73, 0.25);
+	border-radius: 5px;
 }
 
 .datebox {
