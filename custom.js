@@ -4,7 +4,7 @@
 		ltc.meetups = [];
 		ltc.markers = {};
 
-		const api = {};
+	const api = {};
 		api.group = 'LearnTeachCode';
 		api.perPage = 15;
 		api.offset = 0;
@@ -85,11 +85,14 @@
 	}
 
 	function drawMap() {
+		// If a map has not been created
 		if( !ltc.map ) {
-			ltc.map = L.map('mapid').setView([
-				// Los Angeles
-				34.0522, -118.2437
-			], 13);
+			// Map Center Coordinates
+			let latlng = [ 34.0522, -118.2437 ];  // Los Angeles
+			let zoomlevel = 13;                   // Greater LA Metro Zoom view
+
+			// Initialize Map and assign to ltc.map
+			ltc.map = L.map('mapid').setView( latlng, zoomlevel );
 		
 			// Use Open Street Map default (Mapnik)
 			// L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -99,7 +102,6 @@
 			
 			//// CARTO BASE MAPS - FREE TO USE ////
 			//// Max use 75,000 map impressions a Month per CartoDB, Inc.
-
 			//// MAP STYLE: Voyager
 			// L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
 			//// MAP STYLE: Voyager Labels Under
