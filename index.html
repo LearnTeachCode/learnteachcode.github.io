@@ -3,7 +3,9 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-
+	<link rel="shortcut icon" href=" ">
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> -->
+	<meta name="viewport" content="width=device-width, user-scalable=no" />
 	<title>Learn Teach Code</title>
 
 	<!-- Google Analytics - Global site tag (gtag.js) -->
@@ -16,6 +18,9 @@
 	</script>
 	<!-- Google Analytics - END -->
 
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+   crossorigin=""/>
 	<link rel="stylesheet" href="style.css">
 </head>
 
@@ -29,6 +34,8 @@
 
 	<section>
 		<h2>Upcoming Events:</h2>
+
+		<div id="mapid"></div>
 
 		<ul class="meetups"></ul>
 
@@ -58,7 +65,11 @@
 			<strong>Want to sponsor us?</strong> We're always on the lookout for more meeting spaces. Let us know if you have any suggestions or would like to sponsor us at your office!
 		</p>
 	</footer>
+	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+	integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+	crossorigin=""></script>
 	<script src="custom.js"></script>
 	</body>
 </html>

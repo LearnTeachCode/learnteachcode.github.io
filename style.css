@@ -1,3 +1,7 @@
+html {
+	scroll-behavior: smooth;
+}
+
 body {
 	font-family: "Helvetica", "Arial", sans-serif;
 	font-size:1.1em;
@@ -66,6 +70,17 @@ section {
 	border-bottom: 1px solid #ddd;
 }
 
+/** MAP **/
+#mapid.active {
+	height: 300px;
+}
+.leaflet-popup-content ul {
+	list-style: none;
+	padding-left: 0px;
+	max-height: 150px;
+    overflow-y: auto;
+}
+
 /** UPCOMING EVENTS **/
 .meetups {
 	list-style: none;
@@ -76,6 +91,14 @@ section {
 	display: grid;
 	grid-template-columns: 70px repeat(6, 10%);
 	margin-bottom: 0.4rem;
+	transition: background .30s ease-in-out;
+	-moz-transition: background .30s ease-in-out;
+	-webkit-transition: background .30s ease-in-out;
+}
+
+.meetup.active {
+	background-color: rgba(183, 73, 73, 0.25);
+	border-radius: 5px;
 }
 
 .datebox {
