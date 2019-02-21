@@ -177,18 +177,17 @@ section {
 
   .datebox {
     grid-column-start: 1;
-    grid-column-end: 3;
+    grid-column-end: 2;
+    max-height: 60px;
+    max-width: 50px;
   }
   .infobox {
-    grid-column-start: 3;
+    grid-column-start: 2;
     grid-column-end: 10;
   }
 
   .load-more a {
     font-size: 2em;
     padding: 10px 25px;
-  }
-  .datebox {
-    max-height: 60px;
   }
 }
