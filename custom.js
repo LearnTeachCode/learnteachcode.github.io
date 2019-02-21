@@ -68,7 +68,7 @@
 						// console.log(meetup.popup.meetings);
 
 						// let popup = '<a href="'+meetup.event_url+'" title="'+meetup.name+'">'+meetup.name+'</a>';
-						meetup.marker = L.marker([meetup.venue.lat, meetup.venue.lon]).addTo(ltc.map).bindPopup( meetup.popup.content );
+						meetup.marker = L.marker([meetup.venue.lat, meetup.venue.lon]).bindPopup( meetup.popup.content ).addTo(ltc.map);
 						ltc.markers[meetup.venue.id] = meetup.marker;
 						currentMarkers.push( meetup.marker );
 					}
@@ -78,8 +78,7 @@
 
 			if( currentMarkers.length > 0 ) {
 				let group = new L.featureGroup( currentMarkers );
-				// Pad allows upper northern markers not to be cut off
-				ltc.map.fitBounds( group.getBounds().pad(0.5) );
+				ltc.map.fitBounds( group.getBounds() );
 			}
 		}
 	}
