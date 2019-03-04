@@ -88,6 +88,17 @@ section {
   overflow-y: auto;
 }
 
+/** VIEW OPTIONS **/
+
+.viewoptions {
+  float: right;
+  padding: 5px;
+}
+
+img {
+  margin: 5px;
+}
+
 /** UPCOMING EVENTS **/
 .meetups {
   list-style: none;
