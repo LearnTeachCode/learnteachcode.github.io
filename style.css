@@ -89,15 +89,34 @@ section {
 }
 
 /** VIEW OPTIONS **/
-
 .viewoptions {
-  float: right;
+  width: 100%;
   padding: 5px;
 }
 
 img {
   margin: 5px;
+  padding: 5px;
 }
+
+img:hover {
+  box-shadow: 1px 1px 1px #ccc;
+}
+
+.weekview {
+  border: 1px solid #ccc;
+  display: flex;
+  flex-flow: row;
+  flex: 1 100%;
+}
+
+.day {
+  border: 1px solid #ccc;
+  width: 100%;
+  height: 500px;
+  text-align: center;
+}
+
 
 /** UPCOMING EVENTS **/
 .meetups {
@@ -172,6 +191,14 @@ img {
 @media only screen and (max-device-width: 768px) {
   .tagline {
     margin-bottom: 0;
+  }
+
+  /** VIEW OPTIONS **/
+  .weekview {
+    flex-flow: column;
+  }
+  .day {
+    width: 100%;
   }
 
   /** UPCOMING EVENTS **/
