@@ -207,9 +207,20 @@
 	/**
 	 * Get initial set of group meetups
 	 */
-	$(document).ready(function(){
+	$(document).ready(function() {
 		// Get intial set of meetups
 		getData( api.url, processData, api.err);
+
+		// Toggle between calendar and list views
+		$( "#weekbutton" ).on('click', function() {     
+			$('.meetups').hide();
+			$('.weekview').show();
+		});
+
+		$( "#listbutton" ).on('click', function() {     
+			$('.weekview').hide();
+			$('.meetups').show();
+		});
 
 		// Click Event for Load More
 		$('.meetups').on('click','.load-more a',function(e) {
