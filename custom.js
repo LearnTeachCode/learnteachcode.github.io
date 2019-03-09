@@ -33,6 +33,7 @@
 		// List new meetups
 		listMeetups(data);
 		mapMeetups(data);
+		listMeetupsinWeekView(data);
 	}
 
 	function mapMeetups(data){
@@ -140,6 +141,107 @@
 		$(".meetups").append(list);
 	}
 
+	// Display Meetup Data in Week View
+	function listMeetupsinWeekView(data) {
+		let list = [];
+		list = getWeekFormattedMeetups(data.results);
+		console.log(list);
+
+		let week = getWeekRange();
+		console.log(week);
+		let thisWeek = [];
+		for(let i=1; i < week.length; i++) {
+			thisWeek.push('<div>'
+				+ week[i].dow.substring(0,3) + ' ' 
+				+ week[i].month.substring(0,3) + ' ' 
+				+ week[i].date		
+				+ '</div>');
+		}
+		
+		//if list[0][i] === date, push to id div
+
+		$('#sunday').append(thisWeek[0] + list[0]);
+		$('#monday').append(thisWeek[1] + list[1]);
+		$('#tuesday').append(thisWeek[2] + list[2]);
+		$('#wednesday').append(thisWeek[3] + list[3]);
+		$('#thursday').append(thisWeek[4] + list[4]);
+		$('#friday').append(thisWeek[5] + list[5]);
+		$('#saturday').append(thisWeek[6] + list[6]);
+	}
+	// Get Week Range
+	function getWeekRange() {
+		let d = new Date; //get current date
+		let first = d.getDate() - d.getDay(); //result?
+		let firstday = (new Date(d.setDate(first - 1))).toUTCString();
+		let week = [firstday];
+		const weekdays = ['Sunday','Monday','Tueday','Wednesday','Thursday','Friday','Saturday'];
+		const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+		for(let i=0; i<7; i++) {
+			let next = new Date(d.getTime());
+			next.setDate(first+i);
+			week.push({
+				dow: weekdays[next.getDay()],
+				date: next.getDate(),
+				month: months[next.getMonth()]
+			});
+		}
+		return week;
+	}
+
+	// Format Meetup Data for Week View
+	function getWeekFormattedMeetups( meetups ) {
+		let sunday = [];
+		let monday = [];
+		let tuesday = [];
+		let wednesday = [];
+		let thursday = [];
+		let friday = [];
+		let saturday = [];
+		let formattedMeetupsByWeek = [sunday, monday, tuesday, wednesday, thursday, friday, saturday];
+
+		// For each event create a list item
+		meetups.filter( function( meetup ) {
+			let d = getDateFormats( meetup );
+
+			let formattedMeetup = '<li id="meetup-' + meetup.id + '" class="week-meetup">'
+			+ '<div class="infobox">' 
+			+ ' <div class="date">' + d.dowFull + ' ' + d.day + '</div>'
+			+ ' <div class="title"><a href="' + meetup.event_url + '">' + meetup.name + '</a></div>'
+			+ ' <div>' + meetup.venue.city + ' - ' + meetup.venue.name + '</div>'
+			+ '</div>'
+			+ '<div>'
+			+ ' <div>' + d.time + '</div>'
+			+ '</div>'
+			+'</li>';
+
+			switch( d.dow ) {
+				case "Sun":
+					sunday.push(formattedMeetup.toString());
+					break;
+				case "Mon":
+					monday.push(formattedMeetup);
+					break;
+				case "Tue":
+					tuesday.push(formattedMeetup);
+					break;
+				case "Wed":
+					wednesday.push(formattedMeetup);
+					break;
+				case "Thu":
+					thursday.push(formattedMeetup);
+					break;
+				case "Fri":
+					friday.push(formattedMeetup);
+					break;
+				case "Sat":
+					saturday.push(formattedMeetup);
+					break;
+			}
+		});
+		console.log(formattedMeetupsByWeek);
+		return formattedMeetupsByWeek;
+	}
 	/**
 	 * formatEvents() will get a set of meetups and format accordingly
 	 * @param {meetups}
@@ -238,6 +340,7 @@
 			meetupListItem.classList.add('active');
 			setTimeout( () => { meetupListItem.classList.remove('active'); }, 3000);
 		});
+
 	});
 
 })();
