@@ -17,7 +17,6 @@
 	gtag('config', 'UA-118124010-1');
 	</script>
 	<!-- Google Analytics - END -->
-
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
    crossorigin=""/>
@@ -42,14 +41,15 @@
 			<img src='./weekview.png' alt='week view' id='weekbutton'>
 		</div>
 
-		<div class='weekview' style='display: none'>
-			<div class='day' id='sunday'></div>
-			<div class='day' id='monday'></div>
-			<div class='day' id='tuesday'></div>
-			<div class='day' id='wednesday'></div>
-			<div class='day' id='thursday'></div>
-			<div class='day' id='friday'></div>
-			<div class='day' id='saturday'></div>
+		<div class='weekview slider' style='display: none'>
+			<button class='prev' onclick='plusSlides(-1)'>&#10094</button>
+			<button class='next' onclick='plusSlides(1)'>&#10095</button>
+			<div class='week slide fade' id='firstweek'></div>
+			<div class='week slide fade' id='secondweek'></div>
+		</div>
+		<div class='dots'>
+			<span class='dot' onclick='currentSlide(1)'></span>
+			<span class='dot' onclick='currentSlide(2)'></span>
 		</div>
 
 		<ul class="meetups"></ul>
@@ -86,5 +86,6 @@
 	integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
 	crossorigin=""></script>
 	<script src="custom.js"></script>
+	<script src="slider.js"></script>
 	</body>
 </html>

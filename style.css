@@ -105,22 +105,54 @@ img:hover {
 
 .weekview {
   border: 1px solid #ccc;
+  position: relative;
+}
+
+.week {
   display: flex;
-  flex-flow: row;
-  flex: 1 100%;
+  flex-flow: row nowrap;
+  flex: 2 50% auto;
 }
 
 .day {
   border: 1px solid #ccc;
-  width: 100%;
-  text-align: center;
+  /* text-align: center; */
+  width: 15%;
 }
 
 .week-meetup {
   list-style: none;
   font-size: 0.8em;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  line-height: 18px;
+  border: 1px solid #b74949;
+  text-align: center;
+  border-radius: 5px;  
+  margin: 5px;
 }
 
+.timebox {
+  border-bottom: 1px solid #b74949;
+  text-align: center;
+  border-radius: 5px 5px 0 0;
+  background-color: rgba(183, 73, 73, 0.3);
+}
+.city-week {
+  font-style: italic;
+}
+.weekday {
+  text-transform: uppercase;
+  background-color: #ddd;
+  text-align: center;
+}
+
+.title a {
+  text-decoration: none;
+}
+.infobox-week {
+  padding: 5px;
+}
 /** UPCOMING EVENTS **/
 .meetups {
   list-style: none;
@@ -189,14 +221,7 @@ img:hover {
 .load-more a:hover {
   background: rgba(183, 73, 73, 0.3);
 }
-/* Slider */
-.slider {
-  position: relative;
-  margin: auto;
-  max-width: 1000px;
-  height: 200px;
-  border: 1px solid black;
-}
+/** Slider **/
 .slide {
   display: none;
 }
@@ -205,23 +230,26 @@ img:hover {
   position: absolute;
   width: auto;
   height: 100%;
-  margin-top: -18px;
+  margin-top: 0px;
   padding: 16px;
-  color: white;
+  color: black;
   font-weight: bold;
   font-size: 18px;
   transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
+  border-radius: 3px 0 0 3px;
   user-select: none;
-  background: none;
-  border: none;
+  background: rgba(0, 0, 0, 0.218);
 }
 .next {
-  right: 0;
-  border-radius: 3px 0 0 3px;
+  right: -45px;
+  border-radius: 0 3px 3px 0;
+}
+.prev {
+  left: -45px;
 }
 .prev:hover, .next:hover {
   background-color: rgba(0, 0, 0, 0.218);
+  color: white;
 }
 .prev:focus, .next:focus {
   outline: none;
