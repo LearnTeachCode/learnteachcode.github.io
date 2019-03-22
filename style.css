@@ -89,77 +89,79 @@ section {
 }
 
 /** VIEW OPTIONS **/
-.viewoptions {
+.views {
   width: 100%;
   padding: 5px;
 }
-
-img {
+.view {
   margin: 5px;
   padding: 5px;
 }
-
-img:hover {
+.view:hover {
   box-shadow: 1px 1px 1px #ccc;
+  transform: scale(1.015);
 }
 
+/** WEEK VIEW **/
 .weekview {
-  border: 1px solid #ccc;
   position: relative;
+  display: none;
 }
-
 .week {
   display: flex;
   flex-flow: row nowrap;
   flex: 2 50% auto;
 }
-
 .day {
   border: 1px solid #ccc;
-  /* text-align: center; */
   width: 15%;
 }
-
-.week-meetup {
-  list-style: none;
-  font-size: 0.8em;
-  border: 1px solid #ccc;
-  text-decoration: none;
-  line-height: 18px;
-  border: 1px solid #b74949;
-  text-align: center;
-  border-radius: 5px;  
-  margin: 5px;
-}
-
-.timebox {
-  border-bottom: 1px solid #b74949;
-  text-align: center;
-  border-radius: 5px 5px 0 0;
-  background-color: rgba(183, 73, 73, 0.3);
-}
-.city-week {
-  font-style: italic;
-}
+/** WEEK VIEW MEETUPS **/
 .weekday {
   text-transform: uppercase;
   background-color: #ddd;
   text-align: center;
+  white-space: wrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
-
-.title a {
+.week-meetup, .week-meetup-none {
+  border: 1px solid #b74949;
+  border-radius: 5px; 
+  font-size: 0.8em;
+  text-align: center;
   text-decoration: none;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  list-style: none;
+  line-height: 18px;
+  margin: 5px;
 }
-.infobox-week {
+.week-meetup-none {
+  border: none;
+}
+.week-meetup:hover {
+  transform: scale(1.015);
+}
+.week-time {
+  background-color: rgba(183, 73, 73, 0.3);
+  border-bottom: 1px solid #b74949;
+  border-radius: 5px 5px 0 0;
+  text-align: center;
+}
+.week-infobox {
   padding: 5px;
 }
-/** UPCOMING EVENTS **/
-.meetups {
+.week-city {
+  font-style: italic;
+}
+
+/** LIST VIEW MEETUPS **/
+.listview {
   list-style: none;
   padding-left: 0px;
 }
-
-.meetup {
+.list-meetup {
   display: grid;
   grid-template-columns: 70px repeat(6, 10%);
   margin-bottom: 0.4rem;
@@ -167,8 +169,7 @@ img:hover {
   -moz-transition: background 0.3s ease-in-out;
   -webkit-transition: background 0.3s ease-in-out;
 }
-
-.meetup.active {
+.list-meetup.active {
   background-color: rgba(183, 73, 73, 0.25);
   border-radius: 5px;
 }
@@ -221,24 +222,26 @@ img:hover {
 .load-more a:hover {
   background: rgba(183, 73, 73, 0.3);
 }
-/** Slider **/
+
+/** SLIDER **/
 .slide {
   display: none;
 }
+
 .prev, .next {
-  cursor: pointer;
+  background: rgba(0, 0, 0, 0.218);
+  border-radius: 3px 0 0 3px;
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
   position: absolute;
   width: auto;
   height: 100%;
   margin-top: 0px;
   padding: 16px;
-  color: black;
-  font-weight: bold;
-  font-size: 18px;
   transition: 0.6s ease;
-  border-radius: 3px 0 0 3px;
   user-select: none;
-  background: rgba(0, 0, 0, 0.218);
+  cursor: pointer;
 }
 .next {
   right: -45px;
@@ -250,40 +253,59 @@ img:hover {
 .prev:hover, .next:hover {
   background-color: rgba(0, 0, 0, 0.218);
   color: white;
+  transform: scale(1.015);
 }
 .prev:focus, .next:focus {
   outline: none;
 }
+
 .dots {
+  display: none;
   text-align: center;
   padding: 15px;
 }
 .dot {
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
   cursor: pointer;
   height: 15px;
   width: 15px;
   margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
   transition: background-color 0.6s ease;
 }
+
 .active, .dot:hover {
   background-color: #717171;
 }
+
 .fade {
   -webkit-animation-name: fade;
   -webkit-animation-duration: 1.5s;
   animation-name: fade;
   animation-duration: 1.5s;
 }
+
 @-webkit-keyframes fade {
   from {opacity: .4}
   to {opacity: 1}
 }
+
 @keyframes fade {
   from {opacity: .4}
   to {opacity: 1}
+}
+
+/** MEDIA QUERIES **/
+@media (max-width: 768px) {
+
+  /** WEEK VIEW **/
+  .week {
+    flex-flow: column nowrap;
+  }
+  .day {
+    width: 100%;
+  }
 }
 
 /** MOBILE STYLES **/
@@ -300,15 +322,15 @@ img:hover {
     width: 100%;
   }
 
-  /** UPCOMING EVENTS **/
-  ul.meetups {
+  /** LIST VIEW MEETUPS **/
+  ul.listview {
     list-style: none;
     padding-left: 0;
   }
-  ul.meetups li {
+  ul.listview li {
     margin-bottom: 2rem;
   }
-  ul.meetups li a {
+  ul.listview li a {
     display: block;
   }
 
@@ -326,5 +348,8 @@ img:hover {
   .load-more a {
     font-size: 2em;
     padding: 10px 25px;
+  }
+  .week {
+    flex-flow: column nowrap;
   }
 }

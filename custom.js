@@ -150,7 +150,7 @@
 		$('.load-more').remove();
 
 		// Add the list to the element
-		$(".meetups").append(list);
+		$(".listview").append(list);
 	}
 
 	// Display Meetup Data in Week View
@@ -189,7 +189,7 @@
 			if(teststring) {
 				formattedWeek += teststring.join('');		
 			} else {
-				formattedWeek += '<div class="week-meetup">No meetups!</div';
+				formattedWeek += '<div class="week-meetup-none">No meetups!</div';
 			}			
 			$('#' + weekday.dow.toLowerCase() + weekday.date).append(formattedWeek);
 		}
@@ -231,11 +231,11 @@
 			}
 
 			let formattedMeetup = '<li id="meetup-' + meetup.id + '" class="week-meetup">'
-			+ '<div class="timebox">' + d.time + '</div>'
-			+ '<div class="infobox-week">' 
+			+ '<div class="week-time">' + d.time + '</div>'
+			+ '<div class="week-infobox">' 
 			// + ' <div class="date">' + d.dowFull + ' ' + d.day + '</div>'
 			+ ' <div class="title"><a href="' + meetup.event_url + '">' + meetup.name + '</a></div>'
-			+ ' <div class="city-week">' + meetup.venue.city + ' - ' + meetup.venue.name + '</div>'
+			+ ' <div class="week-city">' + meetup.venue.city + ' - ' + meetup.venue.name + '</div>'
 			+ '</div>'
 			+'</li>';
 			
@@ -258,7 +258,7 @@
 
 			// Formant and add current event to list
 			formattedMeetups.push(
-				'<li id="meetup-' + meetup.id + '" class="meetup">'
+				'<li id="meetup-' + meetup.id + '" class="list-meetup">'
 				+ '<div class="datebox">'
 				+ ' <div class="dow">' + d.dow + '</div>'
 				+ ' <div class="date">' + d.month + ' ' + d.day + '</div>'
@@ -316,17 +316,19 @@
 
 		// Toggle between calendar and list views
 		$( "#weekbutton" ).on('click', function() {     
-			$('.meetups').hide();
+			$('.listview').hide();
 			$('.weekview').show();
+			$('.dots').show();
 		});
 
 		$( "#listbutton" ).on('click', function() {     
 			$('.weekview').hide();
-			$('.meetups').show();
+			$('.listview').show();
+			$('.dots').hide();
 		});
 
 		// Click Event for Load More
-		$('.meetups').on('click','.load-more a',function(e) {
+		$('.listview').on('click', '.load-more a', function(e) {
 			e.preventDefault();
 			api.offset++;
 			getData( api.url + '&offset=' + api.offset, processData, api.err);

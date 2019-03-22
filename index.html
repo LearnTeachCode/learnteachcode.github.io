@@ -36,12 +36,12 @@
 
 		<div id="mapid"></div>
 
-		<div class='viewoptions'>
-			<img src='./listview.png' alt='list view' id='listbutton'>
-			<img src='./weekview.png' alt='week view' id='weekbutton'>
+		<div class='views'>
+			<img class='view' src='./listview.png' alt='list view' id='listbutton'>
+			<img class='view' src='./weekview.png' alt='week view' id='weekbutton'>
 		</div>
 
-		<div class='weekview slider' style='display: none'>
+		<div class='weekview slider'>
 			<button class='prev' onclick='plusSlides(-1)'>&#10094</button>
 			<button class='next' onclick='plusSlides(1)'>&#10095</button>
 			<div class='week slide fade' id='firstweek'></div>
@@ -52,7 +52,7 @@
 			<span class='dot' onclick='currentSlide(2)'></span>
 		</div>
 
-		<ul class="meetups"></ul>
+		<ul class="listview"></ul>
 
 		<p>Visit our <a href="https://www.meetup.com/LearnTeachCode/">Meetup.com page</a> for details on our next meetings.</p>
 
