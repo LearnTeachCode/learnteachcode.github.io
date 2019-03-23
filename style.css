@@ -251,7 +251,7 @@ section {
   left: -45px;
 }
 .prev:hover, .next:hover {
-  background-color: rgba(0, 0, 0, 0.218);
+  background-color: rgba(183, 73, 73, 0.3);
   color: white;
   transform: scale(1.015);
 }
