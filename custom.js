@@ -203,7 +203,7 @@
 	function getWeekRange() {
 		let d = new Date; //get current date
 
-//FIX THAT FIRST INDEX ISSUE WITH FALSE DAY
+//FIX THAT FIRST INDEX ISSUE WITH FALSE
 		let first = d.getDate() - d.getDay();
 		let firstday = (new Date(d.setDate(first - 1))).toUTCString();
 		let week = [firstday];
