@@ -4,6 +4,7 @@
 		ltc.meetups = [];
 		ltc.markers = {};
 
+//COMBINE WITH DATE FUNCTION
 	// get week range for meetups
 	let currentWeek = getWeekRange();
 	let today = new Date;
@@ -159,6 +160,8 @@
 		let week = getWeekRange();
 		
 		let unfilteredMeetups = data.results;
+
+// REMOVE UNNECESSARY, COMBINE with DATE FUNCTION
 		let currentDay = new Date();
 		let maxDay = new Date(currentDay.getDate()+5);
 		let maxTime = maxDay.getTime(); //compare by utc time
@@ -167,6 +170,7 @@
 
 		let meetupsByDay = getWeekFormattedMeetups(filteredMeetups);
 
+//COMBINE BELOW 
 		for(let i=1; i <= 7; i++) {
 			let week1div = '<div class="day" id="' + week[i].dow.toLowerCase() + week[i].date + '"></div>';
 			document.querySelector('#firstweek').insertAdjacentHTML('beforeend', week1div);
@@ -194,10 +198,12 @@
 			$('#' + weekday.dow.toLowerCase() + weekday.date).append(formattedWeek);
 		}
 	}
-
+// ADD TO DATE FUNCTION
 	// Get Week Range
 	function getWeekRange() {
 		let d = new Date; //get current date
+
+//FIX THAT FIRST INDEX ISSUE WITH FALSE DAY
 		let first = d.getDate() - d.getDay();
 		let firstday = (new Date(d.setDate(first - 1))).toUTCString();
 		let week = [firstday];
