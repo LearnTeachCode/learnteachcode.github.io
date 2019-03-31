@@ -3,22 +3,29 @@
 		ltc.map;
 		ltc.meetups = [];
 		ltc.markers = {};
-
+	
 //COMBINE WITH DATE FUNCTION
 	// get week range for meetups
-	let currentWeek = getWeekRange();
+	let days = getCurrentDates(2);
 	let today = new Date;
-	console.log(currentWeek);
-	let firstDow = today.getDate()-currentWeek[1].date + 1;
-	let lastDow = currentWeek[14].date-today.getDate();
+	// let firstDow = today.getDate() - days[0].date + 1;
+	// let lastDow = days[days.length -1].date - today.getDate(); // next week Saturday
+	// let firstDow = 0;
+	let lastDow = 14 - today.getDay();
+	console.log(days);
+	console.log('todays date', today.getDate());
+	// console.log(firstDow, lastDow);
+	// let firstDow = 7;
+	// let lastDow = 28;
 	const api = {};
 		api.group = 'LearnTeachCode';
-		// api.perPage = 15; &page=' + api.perPage + 
+		// api.perPage = 21; 
 		api.offset = 0;
 		api.path = 'https://api.meetup.com/2/events?&sign=true&photo-host=public';
-		api.startWeekDate = '-' + firstDow + 'd';
-		api.endWeekDate = lastDow + 'd';
-		api.status = 'upcoming,past';
+		// api.startWeekDate = firstDow + 'd'; //-4d, 
+		api.startWeekDate = '0';
+		api.endWeekDate = lastDow + 'd'; // 23
+		api.status = 'upcoming';
 		api.url = api.path + '&group_urlname=' + api.group + '&status=' + api.status + '&time=' + api.startWeekDate + ',' + api.endWeekDate;
 		api.err = "Error occurred processing Meetup API URL";
 
@@ -34,9 +41,8 @@
 	}
 
 	function processData(data) {
-		let utctime = new Date(data.results[0].time);
-		console.log(utctime.toUTCString());
-
+		data.days = getCurrentDates(2);
+		console.log(data);
 		data.results.forEach( function( meetup, index ) {
 			// Get event formatted dates and time
 			data.results[index].d = getDateFormats( meetup );
@@ -142,7 +148,7 @@
 			if(data.meta.total_count > data.meta.count && data.meta.count >= api.perPage){
 				list += '<li class="load-more"><a href="https://www.meetup.com/LearnTeachCode/events/">Load More</a></li>';
 			}
-		}else{
+		} else{
 			// No upcoming events note
 			list += '<li>No Meetups Currently Scheduled. Stay tuned.</li>';
 		}
@@ -157,69 +163,48 @@
 	// Display Meetup Data in Week View
 	function listMeetupsinWeekView(data) {
 
-		let week = getWeekRange();
-		
-		let unfilteredMeetups = data.results;
+		let days = data.days;
+		console.log('testing', days);
+		let meetups = data.results;
 
-// REMOVE UNNECESSARY, COMBINE with DATE FUNCTION
-		let currentDay = new Date();
-		let maxDay = new Date(currentDay.getDate()+5);
-		let maxTime = maxDay.getTime(); //compare by utc time
+		// REMOVE UNNECESSARY, COMBINE with DATE FUNCTION
+		// let today = new Date();
+		// let maxDay = new Date(today.getDate()+5);
+		// let maxTime = maxDay.getTime(); //compare by utc time
 
-		let filteredMeetups = unfilteredMeetups.filter((meetup) => meetup.time >= maxTime);
+		// let filteredMeetups = meetups.filter((meetup) => meetup.time >= maxTime);
 
-		let meetupsByDay = getWeekFormattedMeetups(filteredMeetups);
+		let meetupsByDay = getWeekFormattedMeetups(meetups);
 
 //COMBINE BELOW 
-		for(let i=1; i <= 7; i++) {
-			let week1div = '<div class="day" id="' + week[i].dow.toLowerCase() + week[i].date + '"></div>';
+		for(let i=0; i <= 6; i++) {
+			let week1div = '<div class="day" id="' + days[i].dow.toLowerCase() + days[i].date + '"></div>';
 			document.querySelector('#firstweek').insertAdjacentHTML('beforeend', week1div);
 		}
 
-		for(let i=8; i <= 14; i++) {
-			let week2div = '<div class="day" id="' + week[i].dow.toLowerCase() + week[i].date + '"></div>';
+		for(let i=7; i <= 13; i++) {
+			let week2div = '<div class="day" id="' + days[i].dow.toLowerCase() + days[i].date + '"></div>';
 			document.querySelector('#secondweek').insertAdjacentHTML('beforeend', week2div);
 		}
 
-		for(let i=1; i < week.length; i++) {
-			let weekday = week[i];
+		for(let i=0; i < days.length; i++) {
+			let weekday = days[i];
 			let dowDay = weekday.dow.substring(0,3) + weekday.date;
-			let teststring = meetupsByDay[dowDay];
+			let meetupString = meetupsByDay[dowDay];
 			let formattedWeek = '<div class="weekday">'
 				+ weekday.dow.substring(0,3) + ' ' 
 				+ weekday.month.substring(0,3) + ' ' 
 				+ weekday.date
 				+ '</div>';
-			if(teststring) {
-				formattedWeek += teststring.join('');		
+				console.log(weekday);
+			if(meetupString) {
+				formattedWeek += meetupString.join('');	
+
 			} else {
 				formattedWeek += '<div class="week-meetup-none">No meetups!</div';
 			}			
 			$('#' + weekday.dow.toLowerCase() + weekday.date).append(formattedWeek);
 		}
-	}
-// ADD TO DATE FUNCTION
-	// Get Week Range
-	function getWeekRange() {
-		let d = new Date; //get current date
-
-//FIX THAT FIRST INDEX ISSUE WITH FALSE
-		let first = d.getDate() - d.getDay();
-		let firstday = (new Date(d.setDate(first - 1))).toUTCString();
-		let week = [firstday];
-		const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-		const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-		for(let i=0; i<14; i++) {
-			let next = new Date(d.getTime());
-			next.setDate(first+i);
-			week.push({
-				dow: weekdays[next.getDay()],
-				date: next.getDate(),
-				month: months[next.getMonth()]
-			});
-		}
-		return week;
 	}
 
 	// Format Meetup Data for Week View
@@ -231,7 +216,7 @@
 		meetups.forEach( function( meetup ) {
 			let d = getDateFormats( meetup );
 			// does d.dow exist within dayArray as array, if not create array
-			let dowDay = d.dow + d.day;
+			let dowDay = d.dow + d.d;
 			if( !dayArrays[dowDay] ) {
 				dayArrays[dowDay] = [];
 			}
@@ -279,7 +264,50 @@
 		});
 		return formattedMeetups;
 	}
+// ADD TO DATE FUNCTION
+	// Get Week Range
+	// function getWeekRange() {
+	// 	const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+	// 	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	// 	let d = new Date; //get current date
 
+	// 	let first = d.getDate() - d.getDay(); //date - dow in num 22 - 5 = 17
+	// 	let firstday = (new Date(d.setDate(first - 1))).toUTCString();
+	// 	let week = [firstday];
+
+	// 	for(let i=0; i<21; i++) {
+	// 		let next = new Date(d.getTime());
+	// 		next.setDate(first+i);
+	// 		week.push({
+	// 			dow: weekdays[next.getDay()],
+	// 			date: next.getDate(),
+	// 			month: months[next.getMonth()]
+	// 		});
+	// 	}
+	// 	return week;
+	// }
+	// Get Week Range
+	function getCurrentDates(numOfWeeks) {
+		const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+		const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		let numOfDays = numOfWeeks * 7;
+		let days = [];
+		let today = new Date;
+		let firstDay = today.getDate() - today.getDay();
+		
+		for(let i=0; i<numOfDays; i++) {		 
+			let nextDate = new Date(today.getTime()); 
+			nextDate.setDate(firstDay+i);
+			days.push({
+				dow: weekdays[nextDate.getDay()],
+				date: nextDate.getDate(),
+				month: months[nextDate.getMonth()],
+				year: nextDate.getFullYear()
+			});
+		}
+		return days;
+
+	}
 	function getDateFormats(meetup) {
 		const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 		const weekdays = ['Sunday','Monday','Tueday','Wednesday','Thursday','Friday','Saturday'];
