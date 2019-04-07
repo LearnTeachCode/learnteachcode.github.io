@@ -4,9 +4,7 @@
 		ltc.meetups = [];
 		ltc.markers = {};
 	
-//COMBINE WITH DATE FUNCTION
 	// get week range for meetups
-	let days = getCurrentDates(2);
 	let today = new Date;
 	let lastDow = 14 - today.getDay();
 	const api = {};
