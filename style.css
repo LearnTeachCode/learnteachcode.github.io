@@ -107,11 +107,13 @@ section {
 .weekview {
   position: relative;
   display: none;
+  min-height: 250px;
 }
 .week {
   display: flex;
   flex-flow: row nowrap;
   flex: 2 50% auto;
+  min-height: 250px;
 }
 .day {
   border: 1px solid #ccc;
