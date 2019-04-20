@@ -304,16 +304,20 @@
 		getData( api.url, processData, api.err);
 
 		// Toggle between calendar and list views
-		$( "#weekbutton" ).on('click', function() {     
-			$('.listview').hide();
-			$('.weekview').show();
-			$('.dots').show();
-		});
+		
+		$('.views').on('click', '.view', function() {
+			$(this).addClass('showing').siblings().removeClass('showing');
 
-		$( "#listbutton" ).on('click', function() {     
-			$('.weekview').hide();
-			$('.listview').show();
-			$('.dots').hide();
+			if (this.id === 'weekbutton') {
+				$('.listview').hide();
+				$('.weekview').show();
+				$('.dots').show();
+			} 
+			if (this.id === 'listbutton') {
+				$('.weekview').hide();
+				$('.listview').show();
+				$('.dots').hide();
+			}
 		});
 
 		// Click Event for Load More

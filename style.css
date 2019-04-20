@@ -92,15 +92,16 @@ section {
 .views {
   width: 100%;
   padding: 5px;
+  margin: 25px 0;
 }
 .view {
-  margin: 5px;
   padding: 5px;
 }
-.view:hover {
-  box-shadow: 1px 1px 1px #ccc;
+.showing {
+  color:  rgba(183, 73, 73);;
   transform: scale(1.015);
 }
+
 
 /** WEEK VIEW **/
 .weekview {
