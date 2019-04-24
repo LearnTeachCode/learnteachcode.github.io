@@ -3,13 +3,18 @@
 		ltc.map;
 		ltc.meetups = [];
 		ltc.markers = {};
-
+	
+	// get week range for meetups
+	let today = new Date;
+	let lastDow = 14 - today.getDay();
 	const api = {};
 		api.group = 'LearnTeachCode';
-		api.perPage = 15;
 		api.offset = 0;
 		api.path = 'https://api.meetup.com/2/events?&sign=true&photo-host=public';
-		api.url = api.path + '&group_urlname=' + api.group + '&page=' + api.perPage;
+		api.startWeekDate = '0';
+		api.endWeekDate = lastDow + 'd';
+		api.status = 'upcoming';
+		api.url = api.path + '&group_urlname=' + api.group + '&status=' + api.status + '&time=' + api.startWeekDate + ',' + api.endWeekDate;
 		api.err = "Error occurred processing Meetup API URL";
 
 	// Get Meetup Data
@@ -24,6 +29,7 @@
 	}
 
 	function processData(data) {
+		data.days = getCurrentDates(2);
 		data.results.forEach( function( meetup, index ) {
 			// Get event formatted dates and time
 			data.results[index].d = getDateFormats( meetup );
@@ -33,6 +39,7 @@
 		// List new meetups
 		listMeetups(data);
 		mapMeetups(data);
+		listMeetupsinWeekView(data);
 	}
 
 	function mapMeetups(data){
@@ -128,7 +135,7 @@
 			if(data.meta.total_count > data.meta.count && data.meta.count >= api.perPage){
 				list += '<li class="load-more"><a href="https://www.meetup.com/LearnTeachCode/events/">Load More</a></li>';
 			}
-		}else{
+		} else{
 			// No upcoming events note
 			list += '<li>No Meetups Currently Scheduled. Stay tuned.</li>';
 		}
@@ -137,9 +144,72 @@
 		$('.load-more').remove();
 
 		// Add the list to the element
-		$(".meetups").append(list);
+		$(".listview").append(list);
 	}
 
+	// Display Meetup Data in Week View
+	function listMeetupsinWeekView(data) {
+
+		let days = data.days;
+		let meetups = data.results;
+
+		let meetupsByDay = getWeekFormattedMeetups(meetups);
+
+		for(let i=0; i <= 6; i++) {
+			let week1div = '<div class="day" id="' + days[i].dow.toLowerCase() + days[i].date + '"></div>';
+			document.querySelector('#firstweek').insertAdjacentHTML('beforeend', week1div);
+		}
+
+		for(let i=7; i <= 13; i++) {
+			let week2div = '<div class="day" id="' + days[i].dow.toLowerCase() + days[i].date + '"></div>';
+			document.querySelector('#secondweek').insertAdjacentHTML('beforeend', week2div);
+		}
+
+		for(let i=0; i < days.length; i++) {
+			let weekday = days[i];
+			let dowDay = weekday.dow.substring(0,3) + weekday.date;
+			let meetupString = meetupsByDay[dowDay];
+			let formattedWeek = '<div class="weekday">'
+				+ weekday.dow.substring(0,3) + ' ' 
+				+ weekday.month.substring(0,3) + ' ' 
+				+ weekday.date
+				+ '</div>';
+			if(meetupString) {
+				formattedWeek += meetupString.join('');	
+
+			} else {
+				formattedWeek += '<div class="week-meetup-none">No meetups!</div';
+			}			
+			$('#' + weekday.dow.toLowerCase() + weekday.date).append(formattedWeek);
+		}
+	}
+
+	// Format Meetup Data for Week View
+	function getWeekFormattedMeetups( meetups ) {
+	
+		let dayArrays = {};
+
+		// For each event create a list item
+		meetups.forEach( function( meetup ) {
+			let d = getDateFormats( meetup );
+			// does d.dow exist within dayArray as array, if not create array
+			let dowDay = d.dow + d.d;
+			if( !dayArrays[dowDay] ) {
+				dayArrays[dowDay] = [];
+			}
+
+			let formattedMeetup = '<li id="meetup-' + meetup.id + '" class="week-meetup">'
+			+ '<div class="week-time">' + d.time + '</div>'
+			+ '<div class="week-infobox">' 
+			+ ' <div class="title"><a href="' + meetup.event_url + '">' + meetup.name + '</a></div>'
+			+ ' <div class="week-city">' + meetup.venue.city + ' - ' + meetup.venue.name + '</div>'
+			+ '</div>'
+			+'</li>';
+			
+			dayArrays[dowDay].push(formattedMeetup);
+		});
+		return dayArrays;
+	}
 	/**
 	 * formatEvents() will get a set of meetups and format accordingly
 	 * @param {meetups}
@@ -155,7 +225,7 @@
 
 			// Formant and add current event to list
 			formattedMeetups.push(
-				'<li id="meetup-' + meetup.id + '" class="meetup">'
+				'<li id="meetup-' + meetup.id + '" class="list-meetup">'
 				+ '<div class="datebox">'
 				+ ' <div class="dow">' + d.dow + '</div>'
 				+ ' <div class="date">' + d.month + ' ' + d.day + '</div>'
@@ -171,6 +241,28 @@
 		return formattedMeetups;
 	}
 
+	// Get Week Range
+	function getCurrentDates(numOfWeeks) {
+		const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+		const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		let numOfDays = numOfWeeks * 7;
+		let days = [];
+		let today = new Date;
+		let firstDay = today.getDate() - today.getDay();
+		
+		for(let i=0; i<numOfDays; i++) {		 
+			let nextDate = new Date(today.getTime()); 
+			nextDate.setDate(firstDay+i);
+			days.push({
+				dow: weekdays[nextDate.getDay()],
+				date: nextDate.getDate(),
+				month: months[nextDate.getMonth()],
+				year: nextDate.getFullYear()
+			});
+		}
+		return days;
+
+	}
 	function getDateFormats(meetup) {
 		const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 		const weekdays = ['Sunday','Monday','Tueday','Wednesday','Thursday','Friday','Saturday'];
@@ -207,12 +299,21 @@
 	/**
 	 * Get initial set of group meetups
 	 */
-	$(document).ready(function(){
+	$(document).ready(function() {
 		// Get intial set of meetups
 		getData( api.url, processData, api.err);
 
+		// Toggle between calendar and list views
+		
+		$('.viewLinks').on('click', '.viewLink', function() {
+			$('.viewLink').removeClass('active');
+			$('.view').removeClass('showing');
+			$(this).addClass('active');
+			$('.view.' + this.id ).addClass('showing');
+		});
+
 		// Click Event for Load More
-		$('.meetups').on('click','.load-more a',function(e) {
+		$('.listview').on('click', '.load-more a', function(e) {
 			e.preventDefault();
 			api.offset++;
 			getData( api.url + '&offset=' + api.offset, processData, api.err);
@@ -227,6 +328,7 @@
 			meetupListItem.classList.add('active');
 			setTimeout( () => { meetupListItem.classList.remove('active'); }, 3000);
 		});
+
 	});
 
 })();

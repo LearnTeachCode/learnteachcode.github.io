@@ -15,6 +15,7 @@ body {
 
 a {
   color: #b74949;
+  cursor: pointer;
 }
 
 h1 {
@@ -88,13 +89,94 @@ section {
   overflow-y: auto;
 }
 
-/** UPCOMING EVENTS **/
-.meetups {
+/** VIEW OPTIONS **/
+.views {
+  width: 100%;
+  padding: 5px;
+  margin: 25px 0;
+}
+.view {
+  padding: 5px;
+  display: none;
+}
+.viewLinks {
+  width: 100%;
+  padding: 5px;
+  margin: 25px 0;
+}
+.viewLink {
+  padding: 5px;
+  color: #000;
+}
+.viewLink:hover, .viewLink.active {
+  color: rgba(183, 73, 73);
+  text-decoration: underline;
+}
+.showing {
+  display: block;
+}
+
+/** WEEK VIEW **/
+.weekview {
+  position: relative;
+  min-height: 250px;
+}
+.week {
+  display: flex;
+  flex-flow: row nowrap;
+  flex: 2 50% auto;
+  min-height: 250px;
+}
+.day {
+  border: 1px solid #ccc;
+  width: 15%;
+}
+/** WEEK VIEW MEETUPS **/
+.weekday {
+  text-transform: uppercase;
+  background-color: #ddd;
+  text-align: center;
+  white-space: wrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.week-meetup, .week-meetup-none {
+  border: 1px solid #b74949;
+  border-radius: 5px; 
+  font-size: 0.8em;
+  text-align: center;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  list-style: none;
+  line-height: 18px;
+  margin: 5px;
+}
+.week-meetup-none {
+  border: none;
+}
+.week-meetup:hover {
+  transform: scale(1.015);
+}
+.week-time {
+  background-color: rgba(183, 73, 73, 0.3);
+  border-bottom: 1px solid #b74949;
+  border-radius: 5px 5px 0 0;
+  text-align: center;
+}
+.week-infobox {
+  padding: 5px;
+}
+.week-city {
+  font-style: italic;
+}
+
+/** LIST VIEW MEETUPS **/
+.listview {
   list-style: none;
   padding-left: 0px;
 }
-
-.meetup {
+.list-meetup {
   display: grid;
   grid-template-columns: 70px repeat(6, 10%);
   margin-bottom: 0.4rem;
@@ -102,8 +184,7 @@ section {
   -moz-transition: background 0.3s ease-in-out;
   -webkit-transition: background 0.3s ease-in-out;
 }
-
-.meetup.active {
+.list-meetup.active {
   background-color: rgba(183, 73, 73, 0.25);
   border-radius: 5px;
 }
@@ -157,21 +238,113 @@ section {
   background: rgba(183, 73, 73, 0.3);
 }
 
+/** SLIDER **/
+.slide {
+  display: none;
+}
+
+.prev, .next {
+  background: rgba(0, 0, 0, 0.218);
+  border-radius: 3px 0 0 3px;
+  color: black;
+  font-weight: bold;
+  font-size: 18px;
+  position: absolute;
+  width: auto;
+  height: 100%;
+  margin-top: 0px;
+  padding: 16px;
+  transition: 0.6s ease;
+  user-select: none;
+  cursor: pointer;
+}
+.next {
+  right: -45px;
+  border-radius: 0 3px 3px 0;
+}
+.prev {
+  left: -45px;
+}
+.prev:hover, .next:hover {
+  background-color: rgba(183, 73, 73, 0.3);
+  color: white;
+  transform: scale(1.015);
+}
+.prev:focus, .next:focus {
+  outline: none;
+}
+
+.dots {
+  text-align: center;
+  padding: 15px;
+}
+.dot {
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  transition: background-color 0.6s ease;
+}
+
+.dot:hover, .dot.active {
+  background-color: #717171;
+}
+
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+/** MEDIA QUERIES **/
+@media (max-width: 768px) {
+
+  /** WEEK VIEW **/
+  .week {
+    flex-flow: column nowrap;
+  }
+  .day {
+    width: 100%;
+  }
+}
+
 /** MOBILE STYLES **/
 @media only screen and (max-device-width: 768px) {
   .tagline {
     margin-bottom: 0;
   }
 
-  /** UPCOMING EVENTS **/
-  ul.meetups {
+  /** VIEW OPTIONS **/
+  .weekview {
+    flex-flow: column;
+  }
+  .day {
+    width: 100%;
+  }
+
+  /** LIST VIEW MEETUPS **/
+  ul.listview {
     list-style: none;
     padding-left: 0;
   }
-  ul.meetups li {
+  ul.listview li {
     margin-bottom: 2rem;
   }
-  ul.meetups li a {
+  ul.listview li a {
     display: block;
   }
 
@@ -189,5 +362,8 @@ section {
   .load-more a {
     font-size: 2em;
     padding: 10px 25px;
+  }
+  .week {
+    flex-flow: column nowrap;
   }
 }

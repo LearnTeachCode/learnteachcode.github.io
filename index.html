@@ -17,7 +17,6 @@
 	gtag('config', 'UA-118124010-1');
 	</script>
 	<!-- Google Analytics - END -->
-
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
    integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
    crossorigin=""/>
@@ -37,7 +36,25 @@
 
 		<div id="mapid"></div>
 
-		<ul class="meetups"></ul>
+		<div class='viewLinks'>
+			<a class='viewLink active' id='list'>List View</a>
+			<a class='viewLink' id='weekly'>Week View</a>
+		</div>
+
+		<div class='view weekly'>
+			<div class='weekview slider'>
+				<button class='prev' onclick='plusSlides(-1)'>&#10094</button>
+				<button class='next' onclick='plusSlides(1)'>&#10095</button>
+				<div class='week slide fade' id='firstweek'></div>
+				<div class='week slide fade' id='secondweek'></div>
+			</div>
+			<div class='dots'>
+				<span class='dot' onclick='currentSlide(1)'></span>
+				<span class='dot' onclick='currentSlide(2)'></span>
+			</div>	
+		</div>
+
+		<div class='view list showing'><ul class="listview"></ul></div>
 
 		<p>Visit our <a href="https://www.meetup.com/LearnTeachCode/">Meetup.com page</a> for details on our next meetings.</p>
 
@@ -71,5 +88,6 @@
 	integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
 	crossorigin=""></script>
 	<script src="custom.js"></script>
+	<script src="slider.js"></script>
 	</body>
 </html>
