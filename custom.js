@@ -305,19 +305,11 @@
 
 		// Toggle between calendar and list views
 		
-		$('.views').on('click', '.view', function() {
-			$(this).addClass('showing').siblings().removeClass('showing');
-
-			if (this.id === 'weekbutton') {
-				$('.listview').hide();
-				$('.weekview').show();
-				$('.dots').show();
-			} 
-			if (this.id === 'listbutton') {
-				$('.weekview').hide();
-				$('.listview').show();
-				$('.dots').hide();
-			}
+		$('.viewLinks').on('click', '.viewLink', function() {
+			$('.viewLink').removeClass('active');
+			$('.view').removeClass('showing');
+			$(this).addClass('active');
+			$('.view.' + this.id ).addClass('showing');
 		});
 
 		// Click Event for Load More

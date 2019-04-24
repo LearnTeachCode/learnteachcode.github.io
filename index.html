@@ -36,23 +36,25 @@
 
 		<div id="mapid"></div>
 
-		<div class='views'>
-			<span class='view showing' id='listbutton'>List View</span>
-			<span class='view' id='weekbutton'>Week View</span>
+		<div class='viewLinks'>
+			<a class='viewLink active' id='list'>List View</a>
+			<a class='viewLink' id='weekly'>Week View</a>
 		</div>
 
-		<div class='weekview slider'>
-			<button class='prev' onclick='plusSlides(-1)'>&#10094</button>
-			<button class='next' onclick='plusSlides(1)'>&#10095</button>
-			<div class='week slide fade' id='firstweek'></div>
-			<div class='week slide fade' id='secondweek'></div>
-		</div>
-		<div class='dots'>
-			<span class='dot' onclick='currentSlide(1)'></span>
-			<span class='dot' onclick='currentSlide(2)'></span>
+		<div class='view weekly'>
+			<div class='weekview slider'>
+				<button class='prev' onclick='plusSlides(-1)'>&#10094</button>
+				<button class='next' onclick='plusSlides(1)'>&#10095</button>
+				<div class='week slide fade' id='firstweek'></div>
+				<div class='week slide fade' id='secondweek'></div>
+			</div>
+			<div class='dots'>
+				<span class='dot' onclick='currentSlide(1)'></span>
+				<span class='dot' onclick='currentSlide(2)'></span>
+			</div>	
 		</div>
 
-		<ul class="listview"></ul>
+		<div class='view list showing'><ul class="listview"></ul></div>
 
 		<p>Visit our <a href="https://www.meetup.com/LearnTeachCode/">Meetup.com page</a> for details on our next meetings.</p>
 

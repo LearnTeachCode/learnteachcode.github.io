@@ -15,6 +15,7 @@ body {
 
 a {
   color: #b74949;
+  cursor: pointer;
 }
 
 h1 {
@@ -96,17 +97,28 @@ section {
 }
 .view {
   padding: 5px;
+  display: none;
+}
+.viewLinks {
+  width: 100%;
+  padding: 5px;
+  margin: 25px 0;
+}
+.viewLink {
+  padding: 5px;
+  color: #000;
+}
+.viewLink:hover, .viewLink.active {
+  color: rgba(183, 73, 73);
+  text-decoration: underline;
 }
 .showing {
-  color:  rgba(183, 73, 73);;
-  transform: scale(1.015);
+  display: block;
 }
-
 
 /** WEEK VIEW **/
 .weekview {
   position: relative;
-  display: none;
   min-height: 250px;
 }
 .week {
@@ -263,7 +275,6 @@ section {
 }
 
 .dots {
-  display: none;
   text-align: center;
   padding: 15px;
 }
@@ -278,7 +289,7 @@ section {
   transition: background-color 0.6s ease;
 }
 
-.active, .dot:hover {
+.dot:hover, .dot.active {
   background-color: #717171;
 }
 
