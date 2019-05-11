@@ -150,6 +150,8 @@
 	// Display Meetup Data in Week View
 	function listMeetupsinWeekView(data) {
 
+		let today = new Date();
+		let weekdays = getDays();
 		let days = data.days;
 		let meetups = data.results;
 
@@ -167,17 +169,20 @@
 			let weekday = days[i];
 			let dowDay = weekday.dow.substring(0,3) + weekday.date;
 			let meetupString = meetupsByDay[dowDay];
-			let formattedWeek = '<div class="weekday">'
+			let isToday = ( (weekdays[today.getDay()].substring(0, 3) + today.getDate()) == dowDay )? " today" : "";
+			let formattedWeek = '<div class="weekday'+ isToday + '">'
 				+ weekday.dow.substring(0,3) + ' ' 
 				+ weekday.month.substring(0,3) + ' ' 
 				+ weekday.date
 				+ '</div>';
+			// If meetups exist
 			if(meetupString) {
 				formattedWeek += meetupString.join('');	
-
+			// Otherwise indicate no meetups for the day
 			} else {
 				formattedWeek += '<div class="week-meetup-none">No meetups!</div';
-			}			
+			}
+			// Append to weekday
 			$('#' + weekday.dow.toLowerCase() + weekday.date).append(formattedWeek);
 		}
 	}
@@ -241,8 +246,8 @@
 
 	// Get Week Range
 	function getCurrentDates(numOfWeeks) {
-		const weekdays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-		const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+		const months = getMonths();
+		const weekdays = getDays();
 		let numOfDays = numOfWeeks * 7;
 		let days = [];
 		let today = new Date;
@@ -262,8 +267,8 @@
 
 	}
 	function getDateFormats(meetup) {
-		const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-		const weekdays = ['Sunday','Monday','Tueday','Wednesday','Thursday','Friday','Saturday'];
+		const months = getMonths();
+		const weekdays = getDays();
 		const dt = new Date(meetup.time);
 
 		// Setup event date info
@@ -281,6 +286,14 @@
 		d.dd = d.day;
 		d.time = formatAMPM( dt );
 		return d;
+	}
+
+	function getMonths() {
+		return ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	}
+
+	function getDays() {
+		return ['Sunday','Monday','Tueday','Wednesday','Thursday','Friday','Saturday'];
 	}
 
 	function formatAMPM(date) {
