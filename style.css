@@ -140,6 +140,9 @@ section {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.weekday.today {
+  font-weight: bold;
+}
 .week-meetup, .week-meetup-none {
   border: 1px solid #b74949;
   border-radius: 5px; 
