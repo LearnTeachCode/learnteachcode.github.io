@@ -155,14 +155,12 @@
 
 		let meetupsByDay = getWeekFormattedMeetups(meetups);
 
-		for(let i=0; i <= 6; i++) {
-			let week1div = '<div class="day" id="' + days[i].dow.toLowerCase() + days[i].date + '"></div>';
-			document.querySelector('#firstweek').insertAdjacentHTML('beforeend', week1div);
-		}
-
-		for(let i=7; i <= 13; i++) {
-			let week2div = '<div class="day" id="' + days[i].dow.toLowerCase() + days[i].date + '"></div>';
-			document.querySelector('#secondweek').insertAdjacentHTML('beforeend', week2div);
+		// 14 days, 0-indexed
+		for(let i=0; i < 14; i++) {
+			// Determine which week we're on
+			let weekid = ( i<7 ) ? 'first' : 'second';
+			let weekdiv = '<div class="day" id="' + days[i].dow.toLowerCase() + days[i].date + '"></div>';
+			document.querySelector('#' + weekid + 'week').insertAdjacentHTML('beforeend', weekdiv);
 		}
 
 		for(let i=0; i < days.length; i++) {
