@@ -201,7 +201,7 @@
 				dayArrays[dowDay] = [];
 			}
 
-			let formattedMeetup = '<li id="meetup-' + meetup.id + '" class="week-meetup">'
+			let formattedMeetup = '<li id="week-meetup-' + meetup.id + '" class="week-meetup">'
 			+ '<div class="week-time">' + d.time + '</div>'
 			+ '<div class="week-infobox">' 
 			+ ' <div class="title"><a href="' + meetup.event_url + '">' + meetup.name + '</a></div>'
@@ -228,7 +228,7 @@
 
 			// Formant and add current event to list
 			formattedMeetups.push(
-				'<li id="meetup-' + meetup.id + '" class="list-meetup">'
+				'<li id="list-meetup-' + meetup.id + '" class="list-meetup">'
 				+ '<div class="datebox">'
 				+ ' <div class="dow">' + d.dow + '</div>'
 				+ ' <div class="date">' + d.month + ' ' + d.day + '</div>'
@@ -332,13 +332,16 @@
 		});
 
 		// Click Popup Event (when it exists) link to go to info
-		$('#mapid').on('click', '.leaflet-popup-content a', function(evt) {
-			evt.preventDefault();
-			let id = evt.target.hash.replace("#", "");
-			let meetupListItem = document.getElementById( id );
-			meetupListItem.scrollIntoView();
-			meetupListItem.classList.add('active');
-			setTimeout( () => { meetupListItem.classList.remove('active'); }, 3000);
+		$('#mapid').on('click', '.leaflet-popup-content a', function(e) {
+			e.preventDefault();
+			let id = e.target.hash.replace("#", "");
+			let activeView = document.querySelector('.view.showing');
+			let meetupListItem = activeView.querySelector("[id$='"+id+"']");
+			if ( meetupListItem ) {
+				meetupListItem.scrollIntoView();
+				meetupListItem.classList.add('active');
+				setTimeout( () => { meetupListItem.classList.remove('active'); }, 3000);
+			}
 		});
 
 	});
