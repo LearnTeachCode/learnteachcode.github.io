@@ -77,11 +77,10 @@ li {
   text-decoration: none;
 }
 .button.active,
+.button.active:hover,
 .button:hover {
   background: rgba(183, 73, 73, 0.3);
-}
-.button:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 /** HEADER **/
