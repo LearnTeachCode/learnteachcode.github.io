@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 html {
   scroll-behavior: smooth;
 }
@@ -16,6 +19,20 @@ body {
 a {
   color: #b74949;
   cursor: pointer;
+}
+a:hover,
+a:active,
+a.active,
+.active > a {
+  color: #000;
+}
+a.active,
+.active > a {
+  text-decoration: none;
+}
+a.active:hover,
+.active > a:hover {
+  text-decoration: underline;
 }
 
 h1 {
@@ -50,6 +67,21 @@ ol {
 
 li {
   margin-bottom: 0.5rem;
+}
+
+.button {
+  display: block;
+  border: 1px solid #b74949;
+  padding: 10px;
+  margin-right: 5px;
+  text-decoration: none;
+}
+.button.active,
+.button:hover {
+  background: rgba(183, 73, 73, 0.3);
+}
+.button:hover {
+  text-decoration: underline;
 }
 
 /** HEADER **/
@@ -103,15 +135,10 @@ section {
   width: 100%;
   padding: 5px;
   margin: 25px 0;
+  display: flex;
+  flex-direction: row;
 }
-.viewLink {
-  padding: 5px;
-  color: #000;
-}
-.viewLink:hover, .viewLink.active {
-  color: rgba(183, 73, 73);
-  text-decoration: underline;
-}
+
 .showing {
   display: block;
 }

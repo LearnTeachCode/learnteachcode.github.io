@@ -316,8 +316,9 @@
 
 		// Toggle between calendar and list views
 		
-		$('.viewLinks').on('click', '.viewLink', function() {
-			$('.viewLink').removeClass('active');
+		$('.viewLinks').on('click', '.button', function(e) {
+			e.preventDefault();
+			$('.viewLinks .button').removeClass('active');
 			$('.view').removeClass('showing');
 			$(this).addClass('active');
 			$('.view.' + this.id ).addClass('showing');
