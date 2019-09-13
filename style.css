@@ -92,6 +92,9 @@ header {
 header h1 {
   margin-top: 0px;
 }
+header h5 {
+  text-align: center;
+}
 
 .tagline {
   font-size: 1.3em;
