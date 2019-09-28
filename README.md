@@ -4,7 +4,7 @@
 
 **See our [Meetup.com calendar](https://www.meetup.com/LearnTeachCode/) for details on our next meetings**
 
-**[<img src="https://a.slack-edge.com/66f9/img/icons/ios-64.png" height="20"> Join our chatroom on Slack](https://join.slack.com/t/learnteachcode/shared_invite/enQtNDQ2MTM3NTk3MjMyLTY5MDM1MjEwNTA4NmUzMDMwNDhlMmI2YjFhMDM1MjdhY2RmZmRlZDUyMDkxMjA0OTY5ZjNiOGE1MTE1ZmZkYzc)**
+**[<img src="https://a.slack-edge.com/66f9/img/icons/ios-64.png" height="20"> Join our chatroom on Slack](https://join.slack.com/t/learnteachcode/shared_invite/enQtNDQ2MTM3NTk3MjMyLThlNjQzYTMzMzEwYWU1MDhmOGUyZmJmMTllZWM3MWQ1ZGU3ZDRkYzY3ZDc3YjE2YjliMTg0MjM2ZWZiMmIwYWU)**
 
 <br/>
 
@@ -24,4 +24,4 @@ Learn programming fundamentals through a variety of languages and platforms toge
 
 Want to get more involved with our community? Follow us on [Twitter](https://twitter.com/LearnToCodeLA) and [GitHub](https://github.com/learnteachcode)!
 
-### [<img src="https://a.slack-edge.com/66f9/img/icons/ios-64.png" height="20"> Slack Channels](https://join.slack.com/t/learnteachcode/shared_invite/enQtNDQ2MTM3NTk3MjMyLTY5MDM1MjEwNTA4NmUzMDMwNDhlMmI2YjFhMDM1MjdhY2RmZmRlZDUyMDkxMjA0OTY5ZjNiOGE1MTE1ZmZkYzc)
+### [<img src="https://a.slack-edge.com/66f9/img/icons/ios-64.png" height="20"> Slack Channels](https://join.slack.com/t/learnteachcode/shared_invite/enQtNDQ2MTM3NTk3MjMyLThlNjQzYTMzMzEwYWU1MDhmOGUyZmJmMTllZWM3MWQ1ZGU3ZDRkYzY3ZDc3YjE2YjliMTg0MjM2ZWZiMmIwYWU)
