@@ -45,25 +45,28 @@
 	function mapMeetups(data){
 		let currentMarkers = [];
 		if(data.meta.count){
-			drawMap();
+
 			data.results.forEach( meetup => {
-				// console.log('venue',meetup.venue.name,meetup.venue.id);
+
 				if( Math.abs(meetup.venue.lat) && Math.abs(meetup.venue.lon) ) {
 					let meeting = '<li>'+meetup.d.month+' '+meetup.d.d+': <a href="#meetup-'+meetup.id+'" title="'+meetup.name+'">'+meetup.name+'</a></li>';
 					meetup.popup = { meetings: [] };
 					if( ltc.markers[meetup.venue.id] ) {
 						meetup.marker = ltc.markers[meetup.venue.id];
-						// console.log('venue exists!', meetup.venue.name, meetup, meetup.popup);
-						
 						meetup.popup.meetings.push( meeting );
-						//let content = meetup.popup.getContent();
 						let newContent = meetup.marker.getPopup().getContent().split("</ul>")[0] + meeting + "</ul>";
 						meetup.marker.setPopupContent( newContent );
-						//console.log( meetup.marker.getPopup().getContent().split("</ul>")[0] + meeting + "</ul>" );
+
+						// let popup = '<a href="'+meetup.event_url+'" title="'+meetup.name+'">'+meetup.name+'</a>';
+						meetup.marker = L.marker([meetup.venue.lat, meetup.venue.lon]).bindPopup( meetup.popup.content ).addTo(ltc.map);
+						ltc.markers[meetup.venue.id] = meetup.marker;
+						currentMarkers.push( meetup.marker );
+
 					} else {
 						meetup.popup.title = '<strong>' + meetup.venue.name + '</strong>';
 						meetup.popup.location = '<br><small>' + meetup.venue.address_1 +', ';
-						meetup.popup.location += meetup.venue.city +', '+ meetup.venue.state.toUpperCase();
+						meetup.popup.location += (meetup.venue.city)? meetup.venue.city : '';
+						meetup.popup.location += (meetup.venue.state)? ', '+ meetup.venue.state.toUpperCase() : '';
 						meetup.popup.location += ( (meetup.venue.zip)? ', '+meetup.venue.zip : '' )+'</small>';
 						meetup.popup.meetings.push( meeting );
 						meetup.popup.content = meetup.popup.title + meetup.popup.location;
@@ -72,18 +75,13 @@
 							meetup.popup.content += meeting;
 						});
 						meetup.popup.content += "</ul>";
-						// console.log(meetup.popup.meetings);
-
-						// let popup = '<a href="'+meetup.event_url+'" title="'+meetup.name+'">'+meetup.name+'</a>';
-						meetup.marker = L.marker([meetup.venue.lat, meetup.venue.lon]).bindPopup( meetup.popup.content ).addTo(ltc.map);
-						ltc.markers[meetup.venue.id] = meetup.marker;
-						currentMarkers.push( meetup.marker );
 					}
 
 				}
 			});
 
 			if( currentMarkers.length > 0 ) {
+				drawMap();
 				let group = new L.featureGroup( currentMarkers );
 				ltc.map.fitBounds( group.getBounds() );
 			}
@@ -205,7 +203,7 @@
 			+ '<div class="week-time">' + d.time + '</div>'
 			+ '<div class="week-infobox">' 
 			+ ' <div class="title"><a href="' + meetup.event_url + '">' + meetup.name + '</a></div>'
-			+ ' <div class="week-city">' + meetup.venue.city + ' - ' + meetup.venue.name + '</div>'
+			+ ' <div class="week-city">' + ((meetup.venue.city)?meetup.venue.city+ ' - ' :'') + meetup.venue.name + '</div>'
 			+ '</div>'
 			+'</li>';
 			
@@ -236,7 +234,7 @@
 				+ '</div>'
 				+ '<div class="infobox">'
 				+ ' <div class="title"><a href="' + meetup.event_url + '">' + meetup.name + '</a></div>'
-				+ ' <div class="city">' + meetup.venue.city + ' - ' + meetup.venue.name + '</div>'
+				+ ' <div class="city">' + ((meetup.venue.city)?meetup.venue.city + ' - ':'') + meetup.venue.name + '</div>'
 				+ '</div>'
 				+'</li>'
 			);
