@@ -43,47 +43,51 @@
 	}
 
 	function mapMeetups(data){
-		let currentMarkers = [];
-		if(data.meta.count){
+		if (data.meta.count > 0) {
 
 			data.results.forEach( meetup => {
-
-				if( Math.abs(meetup.venue.lat) && Math.abs(meetup.venue.lon) ) {
-					let meeting = '<li>'+meetup.d.month+' '+meetup.d.d+': <a href="#meetup-'+meetup.id+'" title="'+meetup.name+'">'+meetup.name+'</a></li>';
+				let meetingListItem, updatedPopupContent;
+				let has = {
+					lat: !!Math.abs(meetup.venue.lat),
+					lon: !!Math.abs(meetup.venue.lon),
+					venue: meetup.venue.name.toLowerCase().trim() !== "online event"
+				};
+				
+				if (has.lat && has.lon && has.venue) {
+					meetingListItem = '<li>'+meetup.d.month+' '+meetup.d.d+': <a href="#meetup-'+meetup.id+'" title="'+meetup.name+'">'+meetup.name+'</a></li>';
 					meetup.popup = { meetings: [] };
 					if( ltc.markers[meetup.venue.id] ) {
 						meetup.marker = ltc.markers[meetup.venue.id];
-						meetup.popup.meetings.push( meeting );
-						let newContent = meetup.marker.getPopup().getContent().split("</ul>")[0] + meeting + "</ul>";
-						meetup.marker.setPopupContent( newContent );
-
-						// let popup = '<a href="'+meetup.event_url+'" title="'+meetup.name+'">'+meetup.name+'</a>';
-						meetup.marker = L.marker([meetup.venue.lat, meetup.venue.lon]).bindPopup( meetup.popup.content ).addTo(ltc.map);
-						ltc.markers[meetup.venue.id] = meetup.marker;
-						currentMarkers.push( meetup.marker );
-
+						meetup.popup.meetings.push( meetingListItem );
+						updatedPopupContent = meetup.marker.getPopup().getContent().split("</ul>")[0] + meetingListItem + "</ul>";
+						meetup.marker.setPopupContent( updatedPopupContent );
 					} else {
 						meetup.popup.title = '<strong>' + meetup.venue.name + '</strong>';
 						meetup.popup.location = '<br><small>' + meetup.venue.address_1 +', ';
 						meetup.popup.location += (meetup.venue.city)? meetup.venue.city : '';
 						meetup.popup.location += (meetup.venue.state)? ', '+ meetup.venue.state.toUpperCase() : '';
 						meetup.popup.location += ( (meetup.venue.zip)? ', '+meetup.venue.zip : '' )+'</small>';
-						meetup.popup.meetings.push( meeting );
+						meetup.popup.meetings.push( meetingListItem );
 						meetup.popup.content = meetup.popup.title + meetup.popup.location;
 						meetup.popup.content += "<ul>";
 						meetup.popup.meetings.forEach( meeting => {
 							meetup.popup.content += meeting;
 						});
 						meetup.popup.content += "</ul>";
-					}
 
+						meetup.marker = L.marker([meetup.venue.lat, meetup.venue.lon]).bindPopup( meetup.popup.content );
+						ltc.markers[meetup.venue.id] = meetup.marker;
+					}
 				}
 			});
 
-			if( currentMarkers.length > 0 ) {
+			// Check if ltc.markers (object values = actual markers object) exist
+			if( Object.values(ltc.markers).length > 0 ) {
 				drawMap();
-				let group = new L.featureGroup( currentMarkers );
-				ltc.map.fitBounds( group.getBounds() );
+				// Create grouping markers and add group of markers to map
+				ltc.map.featureGroup = new L.featureGroup( Object.values(ltc.markers) ).addTo(ltc.map);
+				// Size the map to the boundries of outer most markers and give it a little padding
+				ltc.map.fitBounds( ltc.map.featureGroup.getBounds().pad(0.1) );
 			}
 		}
 	}
