@@ -4,7 +4,7 @@
 
 **See our [Meetup.com calendar](https://www.meetup.com/LearnTeachCode/) for details on our next meetings**
 
-**[<img src="https://a.slack-edge.com/66f9/img/icons/ios-64.png" height="20"> Join our chatroom on Slack](https://learnteachcode.org/)**
+**[<img src="https://a.slack-edge.com/66f9/img/icons/ios-64.png" height="20"> Join our chatroom on Slack](https://learnteachcode.org/slack)**
 
 <br/>
 
