@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
 <head>
 	<meta charset="utf-8">
 	<link rel="shortcut icon" href=" ">
@@ -11,27 +12,63 @@
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-118124010-1"></script>
 	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
 
-	  gtag('config', 'UA-118124010-1');
+		gtag('config', 'UA-118124010-1');
 	</script>
 
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
-   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
-   crossorigin=""/>
+		integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+		crossorigin="" />
+	<script src="https://kit.fontawesome.com/977a0e1c20.js" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 	<header>
 		<h1>Learn Teach Code</h1>
-		<h5><a href="https://learnteachcode.org/slack" target="_blank" rel="noopener">Join our Slack!</a> | <a href="https://learnteachcode.org/code-coffee-compendium" target="_blank" rel="noopener">Resources</a> | <a href="./code-of-conduct.html">Code of Conduct</a></h5>
-		<p class="tagline">A community for anyone who wants to learn about computer science or programming</p>
-		<p>Whether you're a total beginner or a coding ninja/guru/Jedi Master, we're here to learn about computer science and programming in a fun, informal environment -- and also to provide moral support to fight the fears and frustrations that come with learning a new skill or transitioning to a new career.</p>
-		<p><strong><a href="https://learnteachcode.org/slack" target="_blank" rel="noopener">Click here to join our chatroom on Slack!</a></strong></p>
-	</header>
+		<hr />
+		<div class="icon-bar" style="text-align: center; column-gap: 20px;">
+			<a href="https://github.com/learnteachcode" class="icon-link">
+				<i class="fa-brands fa-github fa-xl"></i>
+			</a>
+			|
+			<a href="https://discord.gg/FZ2wqAg4XV" class="icon-link">
+				<i class="fa-brands fa-discord fa-xl"></i>
+			</a>
+			|
+			<a href="https://learnteachcode.org/slack" class="icon-link">
+				<i class="fa-brands fa-slack fa-xl"></i>
+			</a>
+			|
+			<a href="https://twitter.com/LearnToCodeLA" class="icon-link">
+				<i class="fa-brands fa-twitter fa-xl"></i>
+			</a>
+			 |
+			<a href="https://www.meetup.com/LearnTeachCode/" class="icon-link">
+				<i class="fa-brands fa-meetup fa-xl"></i>
+			</a>
+			<h5 style="margin-top: 5px; margin-bottom: 5px;">
+				<a href="https://learnteachcode.org/code-coffee-compendium" target="_blank" rel="noopener">Resources</a>
+				|
+				<a href="./code-of-conduct.html">Code of Conduct</a>
+			</h5>
+			<hr />
+		</div>
+
+		<br />
+		<p class="tagline">"A community for anyone who wants to learn about computer science or programming."</p>
+		<hr />
+		<br />
+		<p>Whether you're a total beginner or a coding ninja/guru/Jedi Master, we're here to learn about computer science
+			and programming in a fun, informal environment -- and also to provide moral support to fight the fears and
+			frustrations that come with learning a new skill or transitioning to a new career.</p>
+		<br />
+		<p style="text-align: center;"><strong><a href="https://discord.gg/FZ2wqAg4XV" target="_blank" rel="noopener">Join our chat on Discord!</a></strong></p> </header>
+		</header>
+
 
 	<section>
 		<h2>Upcoming Events:</h2>
@@ -53,12 +90,15 @@
 			<div class='dots'>
 				<span class='dot' onclick='currentSlide(1)'></span>
 				<span class='dot' onclick='currentSlide(2)'></span>
-			</div>	
+			</div>
 		</div>
 
-		<div class='view list showing'><ul class="listview"></ul></div>
+		<div class='view list showing'>
+			<ul class="listview"></ul>
+		</div>
 
-		<p>Visit our <a href="https://www.meetup.com/LearnTeachCode/">Meetup.com page</a> for details on our next meetings.</p>
+		<p>Visit our <a href="https://www.meetup.com/LearnTeachCode/">Meetup.com page</a> for details on our next meetings.
+		</p>
 
 	</section>
 
@@ -66,9 +106,12 @@
 		<h2>Stuff we do at Learn Teach Code:</h2>
 
 		<ul>
-			<li><strong>Learn programming fundamentals</strong> through a variety of languages and platforms together in small groups or pair programming -- everything from short tutorials to day-long hackathons/learnathons!</li>
-			<li><strong>Workshops</strong> -- build something tangible and learn new skills in our structured group classes!</li>
-			<li><strong>Co-working and casual learning</strong> - work on your own projects independently while enjoying the company of like-minded people.</li>
+			<li><strong>Learn programming fundamentals</strong> through a variety of languages and platforms together in small
+				groups or pair programming -- everything from short tutorials to day-long hackathons/learnathons!</li>
+			<li><strong>Workshops</strong> -- build something tangible and learn new skills in our structured group classes!
+			</li>
+			<li><strong>Co-working and casual learning</strong> - work on your own projects independently while enjoying the
+				company of like-minded people.</li>
 			<li><strong> Discussion groups</strong> for language-agnostic topics (book club, anyone?)</li>
 			<li><strong>Project show-and-tell</strong> -- get feedback, generate ideas, or just show off your mad skillz!</li>
 			<li>And other random, fun activities like geeky movie nights and joint events with other meetups!</li>
@@ -78,20 +121,24 @@
 	<footer>
 		<p>
 			<strong>Want to get more involved with our community?</strong>
-			 <a href="https://learnteachcode.org/slack" target="_blank">Join our chatroom on Slack</a> and follow us on <a href="https://twitter.com/LearnToCodeLA" target="_blank">Twitter</a> and <a href="https://github.com/learnteachcode" target="_blank">GitHub</a>!
+			<a href="https://learnteachcode.org/slack" target="_blank">Join our chatroom on Slack</a> and follow us on <a
+				href="https://twitter.com/LearnToCodeLA" target="_blank">Twitter</a> and <a
+				href="https://github.com/learnteachcode" target="_blank">GitHub</a>!
 		</p>
 		<p>
-			<strong>Want to sponsor us?</strong> We're always on the lookout for more meeting spaces. Let us know if you have any suggestions or would like to sponsor us at your office!
+			<strong>Want to sponsor us?</strong> We're always on the lookout for more meeting spaces. Let us know if you have
+			any suggestions or would like to sponsor us at your office!
 		</p>
 	</footer>
-	
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"
-	integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f"
-	crossorigin="anonymous"></script>
+		integrity="sha384-xBuQ/xzmlsLoJpyjoggmTEz8OWUFM0/RC5BsqQBDX2v5cMvDHcMakNTNrHIW2I5f"
+		crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
-	integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
-	crossorigin=""></script>
+		integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+		crossorigin=""></script>
 	<script src="custom.js"></script>
 	<script src="slider.js"></script>
-	</body>
+</body>
+
 </html>

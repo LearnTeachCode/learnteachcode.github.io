@@ -16,6 +16,10 @@ body {
   padding: 4rem 3rem;
 }
 
+.icon-link {
+  text-decoration: none;
+}
+
 a {
   color: #b74949;
   cursor: pointer;
@@ -102,7 +106,7 @@ header h5 {
   margin: 1em auto 2em auto;
   font-style: italic;
   text-align: center;
-  color: #b74949;
+  color: #772F2F;
 }
 
 /** SECTIONS **/
@@ -398,4 +402,10 @@ section {
   .week {
     flex-flow: column nowrap;
   }
+}
+
+div.icon-bar {
+  display: table;
+  width: 100%;
+  table-layout: fixed;    /* For cells of equal size */
 }
